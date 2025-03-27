@@ -9,9 +9,9 @@ app.use(cors({
     origin: "*"
 }));
 
-const sneakersRouter = require("./routes/routes");
-app.use( sneakersRouter);
+const jewelriesRouter = require("./routes/routes");
+app.use( jewelriesRouter);
 
 app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`);
+  console.log(`Example app listening at http://localhost:${port}/jewelry`);
 });

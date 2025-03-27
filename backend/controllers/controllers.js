@@ -1,7 +1,7 @@
 const data = require('../products.json');
 
-// Get all jewelry
-exports.getSneakers = (req, res) => {
+
+exports.getJewelry = (req, res) => {
     const jewelry = data.categories.men.jewelry.concat(data.categories.women.jewelry);
     res.status(200).json({
         message: "jewelry found",
@@ -9,8 +9,8 @@ exports.getSneakers = (req, res) => {
     });
 }
 
-// Get jewelry by ID
-exports.getSneakerById = (req, res) => {
+
+exports.getJewelryById = (req, res) => {
     const id = parseInt(req.params.id);
     
     const jewelry = data.categories.men.jewelry.concat(data.categories.women.jewelry);
