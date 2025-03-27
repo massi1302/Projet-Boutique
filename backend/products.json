@@ -1,93 +1,113 @@
 {
-    "categories":{
-        "men":{
-            "jewelry":[
+    "categories": {
+        "men": {
+            "jewelry": [
                 {
-                    "id":1,
-                    "name":"bracelet Cuir et Acier",
-                    "description":"Bracelet masculin sophistiqué alliant cuir véritable et détails en acier inoxydable. Fermoir magnétique élégant, ajustable à différentes tailles de poignet. Un accessoire qui ajoute une touche de raffinement à toute tenue.",
-                    "quantity":75,
-                    "price":29.99,
-                    "discount":0,
-                    "currency":"EUR",
-                    "images":[
-                        "https://www.jewelry.com/images/bracelet-cuir-acier-1.jpg",
-                        "https://www.jewelry.com/images/bracelet-cuir-acier-2.jpg",
-                        "https://www.jewelry.com/images/bracelet-cuir-acier-3.jpg"
+                    "id": 1,
+                    "name": "Silk-Stainless-Steel-Two-Piece-Necklace",
+                    "description": "Indulge in the luxurious silhouette of the Boutique Silk Stainless Steel Two Piece Set Necklace. This exquisite piece exudes elegance and sophistication, crafted with the finest materials and impeccable attention to detail. Add a touch of artistry and style to your wardrobe with this premium jewelry set.",
+                    "quantity": 75,
+                    "price": 29.99,
+                    "discount": 0,
+                    "currency": "EUR",
+                    "images": [
+                        "./img/Silk-Stainless-Steel-Two-Piece-Necklace(1).png",
+                        "./img/Silk-Stainless-Steel-Two-Piece-Necklace(2).png",
+                        "./img/Silk-Stainless-Steel-Two-Piece-Necklace(3).png"
                     ],
-                    "characteristics":{
-                        "gender":"homme",
-                        "type":"bracelet",
-                        "availableColors":["noir","marron"],
-                        "material":["cuir", "acier inoxydable"],
-                        "adjustable":true
+                    "characteristics": {
+                        "gender": "homme",
+                        "type": "bracelet",
+                        "availableColors": [
+                            "noir",
+                            "marron"
+                        ],
+                        "material": [
+                            "cuir",
+                            "acier inoxydable"
+                        ],
+                        "adjustable": true
                     }
                 },
                 {
-                    "id":2,
-                    "name":"Collier Pendentif Moderne",
-                    "description":"Collier élégant pour homme, avec un pendentif géométrique en acier inoxydable sur une chaîne fine et robuste. Design minimaliste qui s'adapte parfaitement aux styles contemporains, idéal pour apporter une touche sophistiquée à votre tenue.",
-                    "quantity":50,
-                    "price":44.50,
-                    "discount":10,
-                    "currency":"EUR",
-                    "images":[
+                    "id": 2,
+                    "name": "Collier Pendentif Moderne",
+                    "description": "Collier élégant pour homme, avec un pendentif géométrique en acier inoxydable sur une chaîne fine et robuste. Design minimaliste qui s'adapte parfaitement aux styles contemporains, idéal pour apporter une touche sophistiquée à votre tenue.",
+                    "quantity": 50,
+                    "price": 44.50,
+                    "discount": 10,
+                    "currency": "EUR",
+                    "images": [
                         "https://www.jewelry.com/images/collier-homme-1.jpg",
                         "https://www.jewelry.com/images/collier-homme-2.jpg"
                     ],
-                    "characteristics":{
-                        "gender":"homme",
-                        "type":"collier",
-                        "availableColors":["argent"],
-                        "material":["acier inoxydable"],
-                        "chainLength":"50cm"
+                    "characteristics": {
+                        "gender": "homme",
+                        "type": "collier",
+                        "availableColors": [
+                            "argent"
+                        ],
+                        "material": [
+                            "acier inoxydable"
+                        ],
+                        "chainLength": "50cm"
                     }
-            }
+                }
             ]
         },
-        "women":{
-            "jewelry":[
+        "women": {
+            "jewelry": [
                 {
-                    "id":1,
-                    "name":"bracelet Cuir et Acier",
-                    "description":"Bracelet masculin sophistiqué alliant cuir véritable et détails en acier inoxydable. Fermoir magnétique élégant, ajustable à différentes tailles de poignet. Un accessoire qui ajoute une touche de raffinement à toute tenue.",
-                    "quantity":75,
-                    "price":29.99,
-                    "discount":0,
-                    "currency":"EUR",
-                    "images":[
+                    "id": 1,
+                    "name": "bracelet Cuir et Acier",
+                    "description": "Bracelet masculin sophistiqué alliant cuir véritable et détails en acier inoxydable. Fermoir magnétique élégant, ajustable à différentes tailles de poignet. Un accessoire qui ajoute une touche de raffinement à toute tenue.",
+                    "quantity": 75,
+                    "price": 29.99,
+                    "discount": 0,
+                    "currency": "EUR",
+                    "images": [
                         "https://www.jewelry.com/images/bracelet-cuir-acier-1.jpg",
                         "https://www.jewelry.com/images/bracelet-cuir-acier-2.jpg",
                         "https://www.jewelry.com/images/bracelet-cuir-acier-3.jpg"
                     ],
-                    "characteristics":{
-                        "gender":"femme",
-                        "type":"bracelet",
-                        "availableColors":["noir","marron"],
-                        "material":["cuir", "acier inoxydable"],
-                        "adjustable":true
+                    "characteristics": {
+                        "gender": "femme",
+                        "type": "bracelet",
+                        "availableColors": [
+                            "noir",
+                            "marron"
+                        ],
+                        "material": [
+                            "cuir",
+                            "acier inoxydable"
+                        ],
+                        "adjustable": true
                     }
                 },
                 {
-                    "id":2,
-                    "name":"Collier Pendentif Moderne",
-                    "description":"Collier élégant pour homme, avec un pendentif géométrique en acier inoxydable sur une chaîne fine et robuste. Design minimaliste qui s'adapte parfaitement aux styles contemporains, idéal pour apporter une touche sophistiquée à votre tenue.",
-                    "quantity":50,
-                    "price":44.50,
-                    "discount":10,
-                    "currency":"EUR",
-                    "images":[
+                    "id": 2,
+                    "name": "Collier Pendentif Moderne",
+                    "description": "Collier élégant pour homme, avec un pendentif géométrique en acier inoxydable sur une chaîne fine et robuste. Design minimaliste qui s'adapte parfaitement aux styles contemporains, idéal pour apporter une touche sophistiquée à votre tenue.",
+                    "quantity": 50,
+                    "price": 44.50,
+                    "discount": 10,
+                    "currency": "EUR",
+                    "images": [
                         "https://www.jewelry.com/images/collier-homme-1.jpg",
                         "https://www.jewelry.com/images/collier-homme-2.jpg"
                     ],
-                    "characteristics":{
-                        "gender":"femme",
-                        "type":"collier",
-                        "availableColors":["argent"],
-                        "material":["acier inoxydable"],
-                        "chainLength":"50cm"
+                    "characteristics": {
+                        "gender": "femme",
+                        "type": "collier",
+                        "availableColors": [
+                            "argent"
+                        ],
+                        "material": [
+                            "acier inoxydable"
+                        ],
+                        "chainLength": "50cm"
                     }
-            }
+                }
             ]
         }
     }
