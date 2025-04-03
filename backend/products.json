@@ -4,20 +4,20 @@
             "jewelry": [
                 {
                     "id": 1,
-                    "name": "Silk-Stainless-Steel-Two-Piece-Necklace",
-                    "description": "Indulge in the luxurious silhouette of the Boutique Silk Stainless Steel Two Piece Set Necklace. This exquisite piece exudes elegance and sophistication, crafted with the finest materials and impeccable attention to detail. Add a touch of artistry and style to your wardrobe with this premium jewelry set.",
+                    "name": "Collier deux pièces en soie et acier inoxydable",
+                    "description": "Laissez-vous séduire par la silhouette luxueuse du collier deux pièces en acier inoxydable Boutique Silk. Ce bijou exquis respire l'élégance et la sophistication, confectionné avec les meilleurs matériaux et un souci du détail irréprochable. Ajoutez une touche artistique et élégante à votre garde-robe avec cette parure haut de gamme.",
                     "quantity": 75,
                     "price": 29.99,
                     "discount": 0,
-                    "currency": "EUR",
+                    "currency": "€",
                     "images": [
-                        "./img/Silk-Stainless-Steel-Two-Piece-Necklace(1).png",
-                        "./img/Silk-Stainless-Steel-Two-Piece-Necklace(2).png",
-                        "./img/Silk-Stainless-Steel-Two-Piece-Necklace(3).png"
+                        "/img/Silk-Stainless-(1).png",
+                        "/img/Silk-Stainless-(2).png",
+                        "/img/Silk-Stainless-(3).png"
                     ],
                     "characteristics": {
                         "gender": "homme",
-                        "type": "bracelet",
+                        "type": "collier",
                         "availableColors": [
                             "noir",
                             "marron"
@@ -31,15 +31,16 @@
                 },
                 {
                     "id": 2,
-                    "name": "Collier Pendentif Moderne",
-                    "description": "Collier élégant pour homme, avec un pendentif géométrique en acier inoxydable sur une chaîne fine et robuste. Design minimaliste qui s'adapte parfaitement aux styles contemporains, idéal pour apporter une touche sophistiquée à votre tenue.",
+                    "name": "Collier Reconnaissance Plaqué Argent",
+                    "description": "Le collier Reconnaissance est constitué d'une chaine raffinée, enjolivé d'un pendentif texturé dont les quatre points cardinaux sont cerclés d'anneaux qui maintiennent en lévitation la pièce centrale minutieusement gravée d'un cheval, qui représente le véhicule de l'esprit pouvant voguer où bon lui semble.",
                     "quantity": 50,
-                    "price": 44.50,
+                    "price": 80,
                     "discount": 10,
-                    "currency": "EUR",
+                    "currency": "€",
                     "images": [
-                        "https://www.jewelry.com/images/collier-homme-1.jpg",
-                        "https://www.jewelry.com/images/collier-homme-2.jpg"
+                       "/img/Collier-Reconnaissance-Plaqué-Argent.jpg",
+                        "/img/Collier-Reconnaissance-Plaqué-Argent-(1).jpg"
+
                     ],
                     "characteristics": {
                         "gender": "homme",
@@ -48,9 +49,163 @@
                             "argent"
                         ],
                         "material": [
+                            "argent 925"
+                        ],
+                        "chainLength": "52cm"
+                    }
+                },
+                {
+                    "id": 3,
+                    "name": "BRACELET ELLIPSE",
+                    "description": "Plus fin et plus discret que les habituels bracelets pour homme, le bracelet Ellipse de Clairette Collection permet d'accessoiriser son poignet sans trop le surcharger (pour les hommes qui n'aiment pas porter beaucoup de bijoux) ou de pouvoir en porter plusieurs à la fois sans avoir des bracelets jusqu'au coude! Il est parfait pour les hommes qui aiment le minimalisme et la simplicité.",
+                    "quantity": 75,
+                    "price": 139.95 ,
+                    "discount": 0,
+                    "currency": "€",
+                    "images": [
+                       "/img/Bracelet-Ellipse.jpg",
+                        "/img/Bracelet-Ellipse-Bleu.jpg",
+                        "/img/Bracelet-Ellipse-Bleu-(1).jpg",
+                        "/img/Bracelet-Ellipse-Marron.jpg",
+                        "/img/Bracelet-Ellipse-Marron-(1).jpg",
+                        "/img/Bracelet-Ellipse-Blanc.jpg",
+                        "/img/Bracelet-Ellipse-Blanc-(1).jpg"
+                    ],
+                    "characteristics": {
+                        "gender": "homme",
+                        "type": "bracelet",
+                        "availableColors": [
+                            "bleu",
+                            "blanc",
+                            "marron"
+                        ],
+                        "material": [
+                            "Pierre semi-précieuse",
+                            "Fil ou cordon",
                             "acier inoxydable"
                         ],
-                        "chainLength": "50cm"
+                        "adjustable": true
+                    }
+                },
+                {
+                    "id": 4,
+                    "name": "METAMORPH - Bracelet",
+                    "description": "Le bracelet METAMORPH est un bijou unique qui allie l'art de la bijouterie à la magie de la transformation. Fabriqué en acier inoxydable de haute qualité, il est conçu pour s'adapter à tous les poignets grâce à son système de réglage innovant. Son design élégant et moderne en fait un accessoire parfait pour toutes les occasions.",
+                    "quantity": 72,
+                    "price": 139.95,
+                    "discount":10,
+                    "currency": "€",
+                    "images": [
+                        "/img/Bracelet-Metamorph.webp",
+                        "/img/Bracelet-Metamorph-(1).webp",
+                        "/img/Bracelet-Metamorph-(2).webp",
+                        "/img/Bracelet-Metamorph-(3).webp"
+                    ],
+                    "characteristics":{
+                        "gender": "homme",
+                        "type": "bracelet",
+                        "fermeture": "Mousqueton",
+                        "availableColors": [
+                            "argent"
+                        ],
+                        "material": [
+                            "acier inoxydable"
+                        ],
+                        "adjustable": true,
+                        "Length": "18cm"
+                    }
+                },
+                {
+                    "id": 5,
+                    "name":"Chevalière or 375 2 tons ovale diamante",
+                    "description":"La chevalière or 375 2 tons ovale diamante est un bijou élégant et raffiné, parfait pour les hommes qui apprécient le luxe discret. Fabriquée en or 375, elle arbore un design ovale orné de diamants scintillants, ajoutant une touche de brillance à votre style. Que ce soit pour une occasion spéciale ou au quotidien, cette chevalière saura mettre en valeur votre personnalité.",
+                    "quantity":13,
+                    "price":80.85,
+                    "discount":28,
+                    "currency":"€",
+                    "images":[
+                        "/img/Chevalière.jpeg",
+                        "/img/Chevalière-(1).jpeg",
+                        "/img/Chevalière-(2).jpeg"
+                    ],
+                  "characteristics":{
+                    "gender": "homme",
+                    "type": "bague",
+                    "availableColors": [
+                        "jaune"
+                    ],
+                    "material": [
+                        "Or 375 jaune 2 tons recyclé"
+                    ],
+                    "poids": "3.40g",
+                    "taille": [
+                        "54",
+                        "55",
+                        "56",
+                        "57",
+                        "58",
+                        "59",
+                        "60",
+                        "61",
+                        "62",
+                        "63",
+                        "64",
+                        "65",
+                        "66",
+                        "67",
+                        "68",
+                        "69",
+                        "70"
+                    ]                 
+                }
+                },
+                {
+                    "id": 6,
+                    "name":"Alliance CLEOR en Argent 925/1000",
+                    "description":"L'alliance CLEOR en Argent 925/1000 est un bijou intemporel qui symbolise l'amour et l'engagement. Fabriquée en argent de haute qualité, elle arbore un design classique et élégant, parfait pour les mariages ou les occasions spéciales. Sa finition polie lui confère une brillance éclatante, faisant de cette alliance un choix idéal pour ceux qui recherchent un bijou durable et raffiné.",
+                    "quantity": 22,
+                    "price":99,
+                    "discount": 0,
+                    "currency":"€",
+                    "images":[
+                        "/img/Alliance-Cleor.avif",
+                        "/img/Alliance-Cleor(1).avif"
+                    ],
+                    "characteristics":{
+                        "gender": "homme",
+                        "type": "bague",
+                        "availableColors": [
+                            "argent"
+                        ],
+                        "material": [
+                            "Argent 925/1000"
+                        ],
+                        "taille": [
+                            "52",
+                            "53",
+                            "54",
+                            "55",
+                            "56",
+                            "57",
+                            "58",
+                            "59",
+                            "60",
+                            "61",
+                            "62",
+                            "63",
+                            "64",
+                            "65",
+                            "66",
+                            "67",
+                            "68",
+                            "69",
+                            "70",
+                            "71",
+                            "72",
+                            "73",
+                            "74",
+                            "76"
+                        ]
                     }
                 }
             ]
@@ -59,16 +214,14 @@
             "jewelry": [
                 {
                     "id": 1,
-                    "name": "bracelet Cuir et Acier",
-                    "description": "Bracelet masculin sophistiqué alliant cuir véritable et détails en acier inoxydable. Fermoir magnétique élégant, ajustable à différentes tailles de poignet. Un accessoire qui ajoute une touche de raffinement à toute tenue.",
+                    "name": "",
+                    "description": "",
                     "quantity": 75,
-                    "price": 29.99,
+                    "price": 39.00,
                     "discount": 0,
-                    "currency": "EUR",
+                    "currency": "€",
                     "images": [
-                        "https://www.jewelry.com/images/bracelet-cuir-acier-1.jpg",
-                        "https://www.jewelry.com/images/bracelet-cuir-acier-2.jpg",
-                        "https://www.jewelry.com/images/bracelet-cuir-acier-3.jpg"
+                     
                     ],
                     "characteristics": {
                         "gender": "femme",
@@ -86,15 +239,14 @@
                 },
                 {
                     "id": 2,
-                    "name": "Collier Pendentif Moderne",
-                    "description": "Collier élégant pour homme, avec un pendentif géométrique en acier inoxydable sur une chaîne fine et robuste. Design minimaliste qui s'adapte parfaitement aux styles contemporains, idéal pour apporter une touche sophistiquée à votre tenue.",
+                    "name": "",
+                    "description": "",
                     "quantity": 50,
                     "price": 44.50,
                     "discount": 10,
-                    "currency": "EUR",
+                    "currency": "€",
                     "images": [
-                        "https://www.jewelry.com/images/collier-homme-1.jpg",
-                        "https://www.jewelry.com/images/collier-homme-2.jpg"
+                      
                     ],
                     "characteristics": {
                         "gender": "femme",
