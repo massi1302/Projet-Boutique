@@ -1,19 +1,33 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/main.css">
     <link rel="stylesheet" href="../css/auth.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
     <title>Compte - Luce Preziosa</title>
 </head>
+
 <body>
     <header>
         <div class="header-left">
             <div class="menu-container">
-                <img src="/icons/menu.png" alt="Menu-icon">
-                <span>Menu</span>
+                <img id="menu-button" src="../icons/menu.png" alt="Menu-icon">
+                <div class="sidebar" id="sidebar">
+                    <div class="close-btn" id="closeBtn">&times;</div>
+                    <nav>
+                        <ul>
+                            <li><a href="#">Rings</a></li>
+                            <li><a href="#">Earrings</a></li>
+                            <li><a href="#">Necklaces</a></li>
+                            <li><a href="#">Bracelets</a></li>
+                            <li><a href="#">Watches</a></li>
+                        </ul>
+                    </nav>
+                </div>
             </div>
             <div class="search-container">
                 <img src="/icons/search.png" alt="search-icon">
@@ -43,17 +57,17 @@
                         <h2>Connexion</h2>
                         <p>Accédez à votre compte Luce Preziosa</p>
                     </div>
-                    
+
                     <div class="form-group">
                         <label for="loginEmail">Email</label>
                         <input type="email" id="loginEmail" name="email" required>
                     </div>
-                    
+
                     <div class="form-group">
                         <label for="loginPassword">Mot de passe</label>
                         <input type="password" id="loginPassword" name="password" required>
                     </div>
-                    
+
                     <div class="form-options">
                         <div class="remember-me">
                             <input type="checkbox" id="remember" name="remember">
@@ -61,7 +75,7 @@
                         </div>
                         <a href="#" class="forgot-password">Mot de passe oublié?</a>
                     </div>
-                    
+
                     <div class="form-submit">
                         <button type="submit" class="auth-button">Se connecter</button>
                     </div>
@@ -84,30 +98,31 @@
                             <input type="text" id="lastName" name="lastName" required>
                         </div>
                     </div>
-                    
+
                     <div class="form-group">
                         <label for="registerEmail">Email</label>
                         <input type="email" id="registerEmail" name="email" required>
                     </div>
-                    
+
                     <div class="form-group">
                         <label for="registerPassword">Mot de passe</label>
                         <input type="password" id="registerPassword" name="password" required>
                         <small>Le mot de passe doit contenir au moins 6 caractères</small>
                     </div>
-                    
+
                     <div class="form-group">
                         <label for="confirmPassword">Confirmer le mot de passe</label>
                         <input type="password" id="confirmPassword" name="confirmPassword" required>
                     </div>
-                    
+
                     <div class="form-group">
                         <div class="terms-checkbox">
                             <input type="checkbox" id="terms" name="terms" required>
-                            <label for="terms">J'accepte les <a href="#">conditions générales</a> et la <a href="#">politique de confidentialité</a></label>
+                            <label for="terms">J'accepte les <a href="#">conditions générales</a> et la <a
+                                    href="#">politique de confidentialité</a></label>
                         </div>
                     </div>
-                    
+
                     <div class="form-submit">
                         <button type="submit" class="auth-button">Créer mon compte</button>
                     </div>
@@ -153,4 +168,5 @@
 
     <script src="../js/auth.js"></script>
 </body>
+
 </html>

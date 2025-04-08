@@ -59,16 +59,17 @@ main {
 .jewelrySwiper .swiper-slide {
     background-color: #fff;
     border-radius: 8px;
-    box-shadow: 0 3px 15px rgba(0,0,0,0.08);
+    box-shadow: 0 3px 15px rgba(0, 0, 0, 0.08);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    height: 380px; /* Hauteur fixe */
+    height: 380px;
+    /* Hauteur fixe */
     overflow: hidden;
     margin-bottom: 10px;
 }
 
 .jewelrySwiper .swiper-slide:hover {
     transform: translateY(-5px);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
 }
 
 .jewelrySwiper .product-card {
@@ -119,7 +120,8 @@ main {
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
-    height: 42px; /* Hauteur fixe pour le titre */
+    height: 42px;
+    /* Hauteur fixe pour le titre */
     line-height: 1.3;
 }
 
@@ -149,11 +151,13 @@ main {
 
 
 
-.swiper-button-next:hover, .swiper-button-prev:hover {
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
     transform: translateY(-2px);
 }
 
-.swiper-button-next:after, .swiper-button-prev:after {
+.swiper-button-next:after,
+.swiper-button-prev:after {
     font-size: 16px;
     color: #333;
     font-weight: bold;
@@ -182,7 +186,7 @@ main {
 .collection-banner {
     width: 100%;
     height: 400px;
-    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('../images/banner-placeholder.jpg');
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../images/banner-placeholder.jpg');
     background-size: cover;
     background-position: center;
     display: flex;
@@ -272,3 +276,63 @@ main {
 }
 
 
+
+.left-container {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex: 1;
+}
+
+.burger {
+    font-size: 24px;
+    color: #333;
+    cursor: pointer;
+}
+
+/* Sidebar now comes from the left */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: -280px;
+    width: 250px;
+    height: 100%;
+    background-color: white;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+    padding: 30px 20px;
+    transition: left 0.3s ease-in-out;
+    z-index: 999;
+}
+
+.sidebar.active {
+    left: 0;
+}
+
+.close-btn {
+    font-size: 24px;
+    text-align: right;
+    cursor: pointer;
+    color: #333;
+    margin-bottom: 30px;
+}
+
+.sidebar nav ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar nav ul li {
+    margin-bottom: 20px;
+}
+
+.sidebar nav ul li a {
+    text-decoration: none;
+    color: #333;
+    font-size: 18px;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+.sidebar nav ul li a:hover {
+    color: #d4af37;
+}

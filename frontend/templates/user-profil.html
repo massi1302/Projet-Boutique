@@ -1,19 +1,33 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/main.css">
     <link rel="stylesheet" href="../css/profile.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
     <title>Mon Profil - Luce Preziosa</title>
 </head>
+
 <body>
     <header>
         <div class="header-left">
             <div class="menu-container">
-                <img src="/icons/menu.png" alt="Menu-icon">
-                <span>Menu</span>
+                <img id="menu-button" src="../icons/menu.png" alt="Menu-icon">
+                <div class="sidebar" id="sidebar">
+                    <div class="close-btn" id="closeBtn">&times;</div>
+                    <nav>
+                        <ul>
+                            <li><a href="#">Rings</a></li>
+                            <li><a href="#">Earrings</a></li>
+                            <li><a href="#">Necklaces</a></li>
+                            <li><a href="#">Bracelets</a></li>
+                            <li><a href="#">Watches</a></li>
+                        </ul>
+                    </nav>
+                </div>
             </div>
             <div class="search-container">
                 <img src="/icons/search.png" alt="search-icon">
@@ -32,7 +46,7 @@
     <main class="profile-main">
         <div class="profile-container">
             <h1>Mon Profil</h1>
-            
+
             <div class="profile-info">
                 <div class="profile-section">
                     <h2>Informations personnelles</h2>
@@ -45,7 +59,7 @@
                         <span id="profileEmail"></span>
                     </div>
                 </div>
-                
+
                 <div class="profile-section">
                     <h2>Actions</h2>
                     <div class="action-buttons">
@@ -53,12 +67,12 @@
                         <button id="logoutButton" class="btn btn-outline">Déconnexion</button>
                     </div>
                 </div>
-                
+
                 <div class="profile-section">
                     <h2>Historique des commandes</h2>
                     <p class="empty-state">Vous n'avez pas encore passé de commande.</p>
                 </div>
-                
+
                 <div class="profile-section">
                     <h2>Mes favoris</h2>
                     <p class="empty-state">Aucun article n'a été ajouté à vos favoris.</p>
@@ -105,4 +119,5 @@
     <script src="../js/main.js"></script>
     <script src="../js/auth.js"></script>
 </body>
+
 </html>
