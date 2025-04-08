@@ -265,18 +265,7 @@ footer {
     }
 }
 
-.left-container {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    flex: 1;
-}
 
-.burger {
-    font-size: 24px;
-    color: #333;
-    cursor: pointer;
-}
 
 /* Sidebar now comes from the left */
 .sidebar {
