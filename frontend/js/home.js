@@ -143,22 +143,4 @@ function initJewelrySwiper(jewelry) {
 }
 
 
-// Gestion de la barre latérale
 
-const menu = document.querySelector('#menu-button');
-const sidebar = document.querySelector('.sidebar');
-const closeBtn = document.querySelector('#closeBtn');
-
-menu.addEventListener('click', () => {
-    sidebar.classList.add('active');
-});
-
-closeBtn.addEventListener('click', () => {
-    sidebar.classList.remove('active');
-});
-
-window.addEventListener('click', (e) => {
-    if (!sidebar.contains(e.target) && !menu.contains(e.target)) {
-        sidebar.classList.remove('active');
-    }
-});
