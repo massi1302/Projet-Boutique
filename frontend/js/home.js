@@ -66,7 +66,7 @@ function initJewelrySwiper(jewelry) {
             ? `<div class="product-badge">-${jewel.discount}%</div>` 
             : '';
         
-        // Structure HTML améliorée pour le slide
+        // Structure HTML  pour le slide
         slide.innerHTML = `
             <div class="product-card">
                 <div class="product-image">

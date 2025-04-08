@@ -51,6 +51,10 @@
     background-color: #333;
 }
 
+.auth-tab:hover {
+    background-color: #f5f5f5;
+}
+
 /* Styles pour les formulaires */
 .auth-form-container {
     position: relative;

@@ -1,193 +1,324 @@
+// URL de base de l'API
+const API_URL = 'http://localhost:3000/auth';
+
+// Fonctions utilitaires pour la gestion des tokens et utilisateurs
+const AuthUtils = {
+    // Sauvegarde du token dans le localStorage
+    saveToken: (token) => {
+        localStorage.setItem('authToken', token);
+    },
+    
+    // Récupération du token
+    getToken: () => {
+        return localStorage.getItem('authToken');
+    },
+    
+    // Sauvegarde des données utilisateur
+    saveUser: (user) => {
+        localStorage.setItem('user', JSON.stringify(user));
+    },
+    
+    // Récupération des données utilisateur
+    getUser: () => {
+        const userData = localStorage.getItem('user');
+        return userData ? JSON.parse(userData) : null;
+    },
+    
+    // Suppression des données d'authentification
+    clearAuth: () => {
+        localStorage.removeItem('authToken');
+        localStorage.removeItem('user');
+    },
+    
+    // Vérification si l'utilisateur est connecté
+    isAuthenticated: () => {
+        return !!AuthUtils.getToken();
+    },
+    
+    // Redirection vers la page appropriée
+    redirectToProfile: () => {
+        window.location.href = '/templates/user-profil.html';
+    },
+    
+    // Redirection vers la page de connexion
+    redirectToLogin: () => {
+        window.location.href = '/templates/profile.html';
+    }
+};
+
+// Affichage des messages d'alerte
+function showAlert(message, type = 'error') {
+    // Supprimer les alertes existantes
+    const existingAlerts = document.querySelectorAll('.alert');
+    existingAlerts.forEach(alert => alert.remove());
+    
+    // Créer une nouvelle alerte
+    const alertDiv = document.createElement('div');
+    alertDiv.className = `alert alert-${type}`;
+    alertDiv.innerText = message;
+    
+    // Insérer l'alerte avant le formulaire actif
+    const activeForm = document.querySelector('.auth-form.active');
+    if (activeForm) {
+        activeForm.insertBefore(alertDiv, activeForm.firstChild);
+        
+        // Faire disparaître l'alerte après 5 secondes
+        setTimeout(() => {
+            alertDiv.style.opacity = '0';
+            setTimeout(() => alertDiv.remove(), 500);
+        }, 5000);
+    }
+}
+
+// Validation du formulaire d'inscription
+function validateRegisterForm() {
+    const password = document.getElementById('registerPassword').value;
+    const confirmPassword = document.getElementById('confirmPassword').value;
+    const terms = document.getElementById('terms').checked;
+    
+    if (password.length < 6) {
+        showAlert('Le mot de passe doit contenir au moins 6 caractères');
+        return false;
+    }
+    
+    if (password !== confirmPassword) {
+        showAlert('Les mots de passe ne correspondent pas');
+        return false;
+    }
+    
+    if (!terms) {
+        showAlert('Vous devez accepter les conditions générales');
+        return false;
+    }
+    
+    return true;
+}
+
 document.addEventListener('DOMContentLoaded', function() {
-    // Sélection des éléments
+    console.log('Script d\'authentification chargé');
+    
+    // Vérifier si l'utilisateur est déjà connecté sur la page de profil
+    const isProfilePage = window.location.pathname.includes('profile.html');
+    const isUserProfilePage = window.location.pathname.includes('user-profil.html');
+    
+    if (isProfilePage && AuthUtils.isAuthenticated()) {
+        // Rediriger vers la page de profil utilisateur si déjà connecté
+        AuthUtils.redirectToProfile();
+        return;
+    }
+    
+    if (isUserProfilePage && !AuthUtils.isAuthenticated()) {
+        // Rediriger vers la page de connexion si non connecté
+        AuthUtils.redirectToLogin();
+        return;
+    }
+    
+    // Charger les données utilisateur sur la page profil
+    if (isUserProfilePage) {
+        loadUserProfile();
+    }
+    
+    // Récupérer les éléments des onglets et formulaires
     const loginTab = document.getElementById('login-tab');
     const registerTab = document.getElementById('register-tab');
     const loginForm = document.getElementById('loginForm');
     const registerForm = document.getElementById('registerForm');
     
-    // URL de base pour les API
-    const apiUrl = 'http://localhost:3000/auth';
+    // Vérifier si les éléments existent et afficher dans la console
+    console.log('Éléments trouvés:', {
+        loginTab: loginTab ? true : false,
+        registerTab: registerTab ? true : false,
+        loginForm: loginForm ? true : false,
+        registerForm: registerForm ? true : false
+    });
     
-    // Fonction pour changer d'onglet
-    function switchTab(activeTab) {
-        // Mettre à jour les classes des onglets
-        loginTab.classList.remove('active');
-        registerTab.classList.remove('active');
-        activeTab.classList.add('active');
+    // Fonction simplifiée pour changer d'onglet
+    function switchTab(isLoginActive) {
+        console.log('Changement d\'onglet vers:', isLoginActive ? 'connexion' : 'inscription');
         
-        // Afficher le formulaire correspondant
-        if (activeTab === loginTab) {
-            loginForm.classList.add('active');
-            registerForm.classList.remove('active');
-        } else {
-            registerForm.classList.add('active');
-            loginForm.classList.remove('active');
+        // Mettre à jour les classes des onglets
+        if (loginTab && registerTab) {
+            loginTab.classList.toggle('active', isLoginActive);
+            registerTab.classList.toggle('active', !isLoginActive);
+        }
+        
+        // Mettre à jour les classes des formulaires
+        if (loginForm && registerForm) {
+            loginForm.classList.toggle('active', isLoginActive);
+            registerForm.classList.toggle('active', !isLoginActive);
         }
     }
     
-    // Écouteurs d'événements pour les onglets
+    // Ajouter les écouteurs d'événements pour les onglets
     if (loginTab) {
-        loginTab.addEventListener('click', function() {
-            switchTab(loginTab);
+        loginTab.addEventListener('click', function(e) {
+            e.preventDefault();
+            console.log('Onglet connexion cliqué');
+            switchTab(true);
         });
     }
     
     if (registerTab) {
-        registerTab.addEventListener('click', function() {
-            switchTab(registerTab);
+        registerTab.addEventListener('click', function(e) {
+            e.preventDefault();
+            console.log('Onglet inscription cliqué');
+            switchTab(false);
         });
     }
     
-    // Gestion du formulaire de connexion
+    // Pour le formulaire de connexion
     if (loginForm) {
-        loginForm.addEventListener('submit', function(e) {
+        loginForm.addEventListener('submit', async function(e) {
             e.preventDefault();
+            console.log('Formulaire de connexion soumis');
             
             const email = document.getElementById('loginEmail').value;
             const password = document.getElementById('loginPassword').value;
             
-            // Validation basique côté client
-            if (!email || !password) {
-                showAlert('Veuillez remplir tous les champs', 'error');
-                return;
-            }
-            
-            // Envoyer les données au serveur
-            fetch(`${apiUrl}/login`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ email, password }),
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.status === 'success') {
-                    // Stocker le token dans localStorage
-                    localStorage.setItem('token', data.token);
-                    localStorage.setItem('user', JSON.stringify(data.user));
-                    
-                    // Afficher un message de succès et rediriger
-                    showAlert('Connexion réussie, redirection en cours...', 'success');
-                    setTimeout(() => {
-                        window.location.href = '/';
-                    }, 1500);
-                } else {
-                    // Afficher un message d'erreur
-                    showAlert(data.message, 'error', loginForm);
+            try {
+                const response = await fetch(`${API_URL}/login`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ email, password })
+                });
+                
+                const data = await response.json();
+                
+                if (!response.ok) {
+                    throw new Error(data.message || 'Erreur lors de la connexion');
                 }
-            })
-            .catch(error => {
-                console.error('Erreur:', error);
-                showAlert('Une erreur est survenue, veuillez réessayer', 'error', loginForm);
-            });
+                
+                // Sauvegarder les données d'authentification
+                AuthUtils.saveToken(data.token);
+                AuthUtils.saveUser(data.user);
+                
+                // Rediriger vers la page de profil
+                AuthUtils.redirectToProfile();
+                
+            } catch (error) {
+                console.error('Erreur de connexion:', error);
+                showAlert(error.message || 'Erreur lors de la connexion');
+            }
         });
     }
     
-    // Gestion du formulaire d'inscription
+    // Pour le formulaire d'inscription
     if (registerForm) {
-        registerForm.addEventListener('submit', function(e) {
+        registerForm.addEventListener('submit', async function(e) {
             e.preventDefault();
+            console.log('Formulaire d\'inscription soumis');
+            
+            // Valider le formulaire
+            if (!validateRegisterForm()) {
+                return;
+            }
             
             const firstName = document.getElementById('firstName').value;
             const lastName = document.getElementById('lastName').value;
             const email = document.getElementById('registerEmail').value;
             const password = document.getElementById('registerPassword').value;
-            const confirmPassword = document.getElementById('confirmPassword').value;
-            const termsAccepted = document.getElementById('terms').checked;
             
-            // Validation basique côté client
-            if (!firstName || !lastName || !email || !password || !confirmPassword) {
-                showAlert('Veuillez remplir tous les champs', 'error', registerForm);
-                return;
-            }
-            
-            if (password !== confirmPassword) {
-                showAlert('Les mots de passe ne correspondent pas', 'error', registerForm);
-                return;
-            }
-            
-            if (password.length < 6) {
-                showAlert('Le mot de passe doit contenir au moins 6 caractères', 'error', registerForm);
-                return;
-            }
-            
-            if (!termsAccepted) {
-                showAlert('Vous devez accepter les conditions générales', 'error', registerForm);
-                return;
-            }
-            
-            // Envoyer les données au serveur
-            fetch(`${apiUrl}/register`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ firstName, lastName, email, password }),
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.status === 'success') {
-                    // Stocker le token dans localStorage
-                    localStorage.setItem('token', data.token);
-                    localStorage.setItem('user', JSON.stringify(data.user));
-                    
-                    // Afficher un message de succès et rediriger
-                    showAlert('Inscription réussie, redirection en cours...', 'success', registerForm);
-                    setTimeout(() => {
-                        window.location.href = '/';
-                    }, 1500);
-                } else {
-                    // Afficher un message d'erreur
-                    showAlert(data.message, 'error', registerForm);
+            try {
+                const response = await fetch(`${API_URL}/register`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        firstName,
+                        lastName,
+                        email,
+                        password
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (!response.ok) {
+                    throw new Error(data.message || 'Erreur lors de l\'inscription');
                 }
-            })
-            .catch(error => {
-                console.error('Erreur:', error);
-                showAlert('Une erreur est survenue, veuillez réessayer', 'error', registerForm);
-            });
+                
+                // Sauvegarder les données d'authentification
+                AuthUtils.saveToken(data.token);
+                AuthUtils.saveUser(data.user);
+                
+                // Afficher un message de succès
+                showAlert('Compte créé avec succès! Redirection...', 'success');
+                
+                // Rediriger vers la page de profil après un court délai
+                setTimeout(() => {
+                    AuthUtils.redirectToProfile();
+                }, 1500);
+                
+            } catch (error) {
+                console.error('Erreur d\'inscription:', error);
+                showAlert(error.message || 'Erreur lors de l\'inscription');
+            }
         });
     }
     
-    // Fonction pour afficher des alertes
-    function showAlert(message, type, form) {
-        // Déterminer quel formulaire est actif si aucun n'est spécifié
-        if (!form) {
-            form = loginForm && loginForm.classList.contains('active') ? loginForm : registerForm;
-        }
-        
-        if (!form) return; // Si aucun formulaire n'est disponible
-        
-        // Vérifier si une alerte existe déjà dans ce formulaire et la supprimer
-        const existingAlert = form.querySelector('.alert');
-        if (existingAlert) {
-            existingAlert.remove();
-        }
-        
-        // Créer une nouvelle alerte
-        const alertDiv = document.createElement('div');
-        alertDiv.className = `alert alert-${type}`;
-        alertDiv.textContent = message;
-        
-        // Ajouter l'alerte au formulaire
-        form.insertBefore(alertDiv, form.firstChild);
-        
-        // Supprimer l'alerte après 3 secondes
-        setTimeout(() => {
-            alertDiv.remove();
-        }, 3000);
+    // Bouton de déconnexion sur la page profil
+    const logoutButton = document.getElementById('logoutButton');
+    if (logoutButton) {
+        logoutButton.addEventListener('click', function() {
+            AuthUtils.clearAuth();
+            AuthUtils.redirectToLogin();
+        });
     }
-    
-    // Fonction pour vérifier si l'utilisateur est connecté
-    function checkAuth() {
-        const token = localStorage.getItem('token');
-        
-        if (token && window.location.pathname.includes('profile.html')) {
-            // L'utilisateur est connecté et sur la page de profil
-            // Ici vous pourriez charger les informations du profil
-        }
-    }
-    
-    // Vérifier l'état de connexion au chargement de la page
-    checkAuth();
 });
+
+// Fonction pour charger les informations du profil utilisateur
+function loadUserProfile() {
+    const user = AuthUtils.getUser();
+    if (!user) return;
+    
+    // Mettre à jour les informations affichées
+    const profileNameElement = document.getElementById('profileName');
+    const profileEmailElement = document.getElementById('profileEmail');
+    
+    if (profileNameElement) {
+        profileNameElement.textContent = `${user.firstName} ${user.lastName}`;
+    }
+    
+    if (profileEmailElement) {
+        profileEmailElement.textContent = user.email;
+    }
+    
+    // Si on a besoin de données supplémentaires depuis l'API
+    fetchUserDetails();
+}
+
+// Fonction pour récupérer des détails supplémentaires sur l'utilisateur si nécessaire
+async function fetchUserDetails() {
+    try {
+        const token = AuthUtils.getToken();
+        if (!token) return;
+        
+        const response = await fetch(`${API_URL}/me`, {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
+        
+        if (!response.ok) {
+            // Si le token est invalide ou expiré, déconnecter l'utilisateur
+            if (response.status === 401 || response.status === 403) {
+                AuthUtils.clearAuth();
+                AuthUtils.redirectToLogin();
+                return;
+            }
+            throw new Error('Erreur lors de la récupération des données utilisateur');
+        }
+        
+        const data = await response.json();
+        
+        // Mettre à jour les informations supplémentaires si nécessaire
+        // Par exemple, historique des commandes, adresses, etc.
+        
+    } catch (error) {
+        console.error('Erreur lors de la récupération des détails utilisateur:', error);
+    }
+}

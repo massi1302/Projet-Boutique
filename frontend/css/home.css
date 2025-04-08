@@ -147,27 +147,10 @@ main {
     margin-top: 10px;
 }
 
-.swiper-button-next, .swiper-button-prev {
-    position: relative;
-    background-color: #fff;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    margin: 0;
-    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    top: auto;
-    left: auto;
-    right: auto;
-    bottom: auto;
-}
+
 
 .swiper-button-next:hover, .swiper-button-prev:hover {
     transform: translateY(-2px);
-    box-shadow: 0 5px 12px rgba(0,0,0,0.15);
 }
 
 .swiper-button-next:after, .swiper-button-prev:after {

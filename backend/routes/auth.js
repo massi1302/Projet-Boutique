@@ -1,16 +1,16 @@
+// routes/auth.js
 const express = require('express');
 const router = express.Router();
-const authController = require('../controllers/auth');
+const userController = require('../controllers/userController');
+const authMiddleware = require('../middleware/auth');
 
-// Routes pour l'authentification
-router.post('/register', authController.register);
-router.post('/login', authController.login);
+// Route pour l'inscription
+router.post('/register', userController.register);
 
+// Route pour la connexion
+router.post('/login', userController.login);
 
-
-// Route protégée d'exemple
-router.get('/profile', authController.protect, (req, res) => {
-  res.sendFile('profile.html', { root: '../frontend/templates' });
-});
+// Route protégée pour récupérer les infos utilisateur
+router.get('/me', authMiddleware.verifyToken, userController.getMe);
 
 module.exports = router;
