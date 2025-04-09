@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/home.css">
     <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/search.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
@@ -31,7 +32,12 @@
                 </div>
             </div>
             <div class="search-container">
-                <img src="../icons/search.png" alt="search-icon">
+                <div class="search" tabindex="0">
+                    <input type="text" class="search__input" aria-label="search" placeholder="Rechercher...">
+                    <button class="search__submit" aria-label="submit search">
+                        <img src="../icons/search.png" alt="search-icon">
+                    </button>
+                </div>
             </div>
         </div>
         <div class="logo">

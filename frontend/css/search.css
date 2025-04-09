@@ -1,0 +1,119 @@
+:root {
+    --search-size: 35px;
+    --search-expanded: 200px;
+    --clr-primary: #c2a87d;
+    --clr-body: #333;
+    --transition-curve: cubic-bezier(0.18, 0.89, 0.32, 1.28);
+}
+
+.search-container {
+    width: var(--search-size);
+    height: var(--search-size);
+    position: relative;
+    flex-shrink: 0;
+}
+
+.search {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: var(--search-size);
+    height: var(--search-size);
+    border-radius: 50%;
+    border: 2px solid transparent;
+    background-color: transparent;
+    overflow: hidden;
+    z-index: 100;
+    transition: width 450ms var(--transition-curve),
+        background-color 300ms ease,
+        border-color 300ms ease;
+}
+
+.search__input {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+    outline: none;
+    padding: 0 calc(var(--search-size) * 0.9) 0 15px;
+    background: transparent;
+    color: var(--clr-body);
+    opacity: 0;
+    font: inherit;
+    font-size: 14px;
+    transition: opacity 300ms ease;
+}
+
+.search__submit {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: calc(var(--search-size) - 15px);
+    height: calc(var(--search-size) - 15px);
+    border: none;
+    background: none;
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 300ms ease,
+        background-color 300ms ease,
+        left 300ms ease,
+        right 300ms ease;
+}
+
+.search__submit img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    transition: filter 300ms ease;
+}
+
+.search:hover {
+    border-color: rgba(194, 168, 125, 0.5);
+}
+
+.search:focus-within {
+    width: var(--search-expanded);
+    border-radius: 100px;
+    border-color: var(--clr-primary);
+    background-color: white;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.search:focus-within .search__input {
+    opacity: 1;
+    cursor: text;
+}
+
+.search:focus-within .search__submit {
+    left: auto;
+    right: 5px;
+    transform: translateY(-50%);
+    background: var(--clr-primary);
+    border-radius: 50%;
+    padding: 5px;
+}
+
+.search:focus-within .search__submit img {
+    filter: brightness(0) invert(1);
+}
+
+@media (max-width: 768px) {
+    .search-container {
+        margin: 0 auto;
+    }
+
+    .search:focus-within {
+        width: min(var(--search-expanded), calc(100vw - 60px));
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .search:focus-within .search__submit {
+        transform: translateY(-50%);
+    }
+}
