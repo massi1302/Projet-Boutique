@@ -213,46 +213,133 @@
             "jewelry": [
                 {
                     "id": 1,
-                    "name": "",
+                    "name": "Bague de fiançailles Gisu - Oval",
                     "description": "",
                     "quantity": 75,
-                    "price": 39.00,
+                    "price": 3000,
                     "discount": 0,
                     "currency": "€",
-                    "images": [],
+                    "images": [
+                        "/img/Bague-de-fiancailles-Gisu-Oval(1).png",
+                        "/img/Bague-de-fiancailles-Gisu-Oval(2).png",
+                        "/img/Bague-de-fiancailles-Gisu-Oval(3).png",
+                        "/img/Bague-de-fiancailles-Gisu-Oval(4).png"
+                    ],
                     "characteristics": {
                         "gender": "femme",
-                        "type": "bracelet",
+                        "type": "bague",
                         "availableColors": [
-                            "noir",
-                            "marron"
+                            "or"
                         ],
                         "material": [
-                            "cuir",
-                            "acier inoxydable"
-                        ],
-                        "adjustable": true
+                            "or",
+                            "diamant rose"
+                        ]
                     }
                 },
                 {
                     "id": 2,
-                    "name": "",
+                    "name": "Bague de fiançailles Gisu - Round",
                     "description": "",
                     "quantity": 50,
                     "price": 44.50,
                     "discount": 10,
                     "currency": "€",
-                    "images": [],
+                    "images": [
+                        "/img/Bague-de-fiancailles-Gisu-Round(1).png",
+                        "/img/Bague-de-fiancailles-Gisu-Round(2).png",
+                        "/img/Bague-de-fiancailles-Gisu-Round(3).png",
+                        "/img/Bague-de-fiancailles-Gisu-Round(4).png",
+                        "/img/Bague-de-fiancailles-Gisu-Round(5).png"
+                    ],
                     "characteristics": {
                         "gender": "femme",
                         "type": "collier",
                         "availableColors": [
+                            "or"
+                        ],
+                        "material": [
+                            "or",
+                            "diamant"
+                        ]
+                    }
+                },
+                {
+                    "id": 3,
+                    "name": "Bracelet Azylis Argent Blanc Oxyde De Zirconium",
+                    "description": "",
+                    "quantity": 50,
+                    "price": 44.50,
+                    "discount": 10,
+                    "currency": "€",
+                    "images": [
+                        "/img/Bracelet_Azylis_Argent_Blanc_Oxyde_De_Zirconium(1).png",
+                        "/img/Bracelet_Azylis_Argent_Blanc_Oxyde_De_Zirconium(2).png",
+                        "/img/Bracelet_Azylis_Argent_Blanc_Oxyde_De_Zirconium(3).png"
+                    ],
+                    "characteristics": {
+                        "gender": "femme",
+                        "type": "bracelet",
+                        "availableColors": [
                             "argent"
                         ],
                         "material": [
-                            "acier inoxydable"
+                            "acier inoxydable",
+                            "oxyde de zirconium"
                         ],
-                        "chainLength": "50cm"
+                        "chainLength": "18cm"
+                    }
+                },
+                {
+                    "id": 4,
+                    "name": "Polka Gold Silver Bracelet",
+                    "description": "",
+                    "quantity": 50,
+                    "price": 44.50,
+                    "discount": 10,
+                    "currency": "€",
+                    "images": [
+                        "/img/Polka_Gold_Silver_Bracelet(1).png",
+                        "/img/Polka_Gold_Silver_Bracelet(2).png",
+                        "/img/Polka_Gold_Silver_Bracelet(3).png"
+                    ],
+                    "characteristics": {
+                        "gender": "femme",
+                        "type": "bracelet",
+                        "availableColors": [
+                            "or"
+                        ],
+                        "material": [
+                            "or",
+                            "emeraude"
+                        ],
+                        "chainLength": "16cm"
+                    }
+                },
+                {
+                    "id": 4,
+                    "name": "Snake Mesh Bracelet with Heart Clasp",
+                    "description": "",
+                    "quantity": 50,
+                    "price": 44.50,
+                    "discount": 10,
+                    "currency": "€",
+                    "images": [
+                        "/img/Snake_Mesh_Bracelet_with_Heart_Clasp(1).png",
+                        "/img/Snake_Mesh_Bracelet_with_Heart_Clasp(2).png",
+                        "/img/Snake_Mesh_Bracelet_with_Heart_Clasp(3).png",
+                        "/img/Snake_Mesh_Bracelet_with_Heart_Clasp(4).png"
+                    ],
+                    "characteristics": {
+                        "gender": "femme",
+                        "type": "bracelet",
+                        "availableColors": [
+                            "rose gold"
+                        ],
+                        "material": [
+                            "or",
+                            "argent"
+                        ]
                     }
                 }
             ]
