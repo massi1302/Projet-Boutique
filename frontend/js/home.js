@@ -88,7 +88,7 @@ function initJewelrySwiper(jewelry) {
                 e.stopPropagation();
                 return;
             }
-            window.location.href = `product.html?id=${jewel.id}`;
+            window.location.href = `/templates/product.html?id=${jewel.id}`;
         });
 
         // Ajouter le slide au wrapper

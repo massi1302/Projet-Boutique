@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/product.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <title>Détail du produit - Luce Preziosa</title>
+</head>
+
+<body>
+    <header>
+        <div class="header-left">
+            <div class="menu-container">
+                <img id="menu-button" src="../icons/menu.png" alt="Menu-icon">
+                <div class="sidebar" id="sidebar">
+                    <div class="close-btn" id="closeBtn">&times;</div>
+                    <nav>
+                        <ul>
+                            <li><a href="#">Rings</a></li>
+                            <li><a href="#">Earrings</a></li>
+                            <li><a href="#">Necklaces</a></li>
+                            <li><a href="#">Bracelets</a></li>
+                            <li><a href="#">Watches</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+            <div class="search-container">
+                <img src="../icons/search.png" alt="search-icon">
+            </div>
+        </div>
+        <div class="logo">
+            <h1>Luce Preziosa</h1>
+        </div>
+        <div class="header-right">
+            <img src="../icons/person.png" alt="person-icon">
+            <img src="../icons/favorite.png" alt="favorite-icon" id="favorite-icon">
+            <div class="cart-icon-container">
+                <img src="../icons/shopping_bag.png" alt="shopping_bag-icon" id="cart-icon">
+                <span class="cart-count" id="cart-count">0</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="product-main">
+        <div class="breadcrumb">
+            <a href="../templates/home.html">Accueil</a> &gt; 
+            <span id="product-category">Catégorie</span> &gt; 
+            <span id="product-name">Nom du produit</span>
+        </div>
+
+        <div class="product-container">
+            <div class="product-gallery">
+                <div class="main-image-container">
+                    <button class="gallery-nav prev-btn">&lt;</button>
+                    <div class="main-image">
+                        <img id="main-product-image" src="" alt="Product Image">
+                        <div class="product-badge" id="discount-badge"></div>
+                    </div>
+                    <button class="gallery-nav next-btn">&gt;</button>
+                </div>
+                <div class="thumbnails" id="image-thumbnails">
+                    <!-- Les miniatures seront générées dynamiquement -->
+                </div>
+            </div>
+
+            <div class="product-info">
+                <h1 id="product-title">Nom du produit</h1>
+                
+                <div class="product-price">
+                    <span id="original-price" class="original-price"></span>
+                    <span id="current-price"></span>
+                    <span id="currency"></span>
+                </div>
+                
+                <div class="product-description-container">
+                    <p id="product-description-short" class="short-description"></p>
+                    <button id="read-more-btn" class="read-more">Lire plus</button>
+                    <p id="product-description-full" class="full-description"></p>
+                </div>
+                
+                <div class="product-colors">
+                    <h3>Couleurs disponibles</h3>
+                    <div id="color-options" class="color-options">
+                        <!-- Les options de couleur seront générées dynamiquement -->
+                    </div>
+                </div>
+                
+                <div class="product-sizes" id="sizes-container">
+                    <h3>Tailles disponibles</h3>
+                    <div id="size-options" class="size-options">
+                        <!-- Les options de taille seront générées dynamiquement (si applicable) -->
+                    </div>
+                </div>
+                
+                <div class="product-quantity">
+                    <h3>Quantité</h3>
+                    <div class="quantity-selector">
+                        <button id="decrease-quantity">-</button>
+                        <input type="number" id="quantity-input" value="1" min="1">
+                        <button id="increase-quantity">+</button>
+                    </div>
+                    <p id="stock-info">En stock: <span id="stock-quantity">0</span></p>
+                </div>
+                
+                <div class="product-actions">
+                    <button id="add-to-cart" class="btn primary-btn">Ajouter au panier</button>
+                    <button id="add-to-wishlist" class="btn secondary-btn">
+                        <img src="../icons/favorite_border.png" alt="wishlist"> Ajouter aux favoris
+                    </button>
+                </div>
+                
+                <div class="product-details">
+                    <h3>Caractéristiques</h3>
+                    <ul id="product-specs">
+                        <!-- Les caractéristiques seront générées dynamiquement -->
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <section class="similar-products">
+            <h2>Vous aimerez aussi</h2>
+            <div class="similar-products-container" id="similar-products">
+                <!-- Les produits similaires seront générés dynamiquement -->
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-column">
+                <h3>Luce Preziosa</h3>
+                <p>La beauté de la lumière dans chaque détail</p>
+            </div>
+            <div class="footer-column">
+                <h3>Liens</h3>
+                <ul>
+                    <li><a href="#">À propos</a></li>
+                    <li><a href="#">Collections</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Service Client</h3>
+                <ul>
+                    <li><a href="#">Livraison</a></li>
+                    <li><a href="#">Retours</a></li>
+                    <li><a href="#">FAQ</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Newsletter</h3>
+                <div class="newsletter-form">
+                    <input type="email" placeholder="Votre email">
+                    <button>S'abonner</button>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2025 Luce Preziosa. Tous droits réservés.</p>
+        </div>
+    </footer>
+
+    <script src="../js/main.js"></script>
+    <script src="../js/product.js"></script>
+</body>
+
+</html>
