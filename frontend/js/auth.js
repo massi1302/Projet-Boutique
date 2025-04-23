@@ -1,5 +1,5 @@
 // URL de base de l'API
-const API_URL = 'http://localhost:3000/auth';
+const API_URL = 'http://localhost:5000/auth';
 
 // Fonctions utilitaires pour la gestion des tokens et utilisateurs
 const AuthUtils = {
@@ -37,12 +37,12 @@ const AuthUtils = {
     
     // Redirection vers la page appropriée
     redirectToProfile: () => {
-        window.location.href = '/templates/user-profil.html';
+        window.location.href = '../templates/user-profil.html';
     },
     
     // Redirection vers la page de connexion
     redirectToLogin: () => {
-        window.location.href = '/templates/profile.html';
+        window.location.href = '../templates/profile.html';
     }
 };
 

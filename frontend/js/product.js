@@ -1,4 +1,4 @@
-const url = 'http://localhost:3000';
+const url = 'http://localhost:5000';
 
 document.addEventListener('DOMContentLoaded', function() {
     // Récupérer l'ID du produit depuis l'URL
@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // Afficher les détails du produit
             displayProductDetails(data.jewel);
             // Récupérer les produits similaires
-            fetchSimilarProducts(data.jewel);
+            fetchSimilarProducts(data.jewel);    
         })
         .catch(error => {
             console.error('Erreur:', error);
@@ -30,9 +30,96 @@ document.addEventListener('DOMContentLoaded', function() {
             window.location.href = '/templates/home.html';
         });
     
-    // Initialiser les événements de la page
+    // Initialiser les événements de la page            
     initPageEvents();
 });
+
+// Ajouter cette fonction qui manquait
+function initPageEvents() {
+    // Gérer le bouton "Lire plus"
+    const readMoreBtn = document.getElementById('read-more-btn');
+    const shortDesc = document.getElementById('product-description-short');
+    const fullDesc = document.getElementById('product-description-full');
+    
+    if (readMoreBtn) {
+        readMoreBtn.addEventListener('click', function() {
+            shortDesc.style.display = 'none';
+            fullDesc.style.display = 'block';
+            readMoreBtn.style.display = 'none';
+        });
+    }
+    
+    // Gérer les contrôles de quantité
+    const decreaseBtn = document.getElementById('decrease-quantity');
+    const increaseBtn = document.getElementById('increase-quantity');
+    const quantityInput = document.getElementById('quantity-input');
+    const stockQuantity = document.getElementById('stock-quantity');
+    
+    if (decreaseBtn && increaseBtn && quantityInput) {
+        decreaseBtn.addEventListener('click', function() {
+            const currentValue = parseInt(quantityInput.value);
+            if (currentValue > 1) {
+                quantityInput.value = currentValue - 1;
+            }
+        });
+        
+        increaseBtn.addEventListener('click', function() {
+            const currentValue = parseInt(quantityInput.value);
+            const maxStock = parseInt(stockQuantity.textContent);
+            if (currentValue < maxStock) {
+                quantityInput.value = currentValue + 1;
+            }
+        });
+        
+        // Valider la saisie manuelle
+        quantityInput.addEventListener('change', function() {
+            const currentValue = parseInt(quantityInput.value);
+            const maxStock = parseInt(stockQuantity.textContent);
+            
+            if (isNaN(currentValue) || currentValue < 1) {
+                quantityInput.value = 1;
+            } else if (currentValue > maxStock) {
+                quantityInput.value = maxStock;
+            }
+        });
+    }
+    
+    // Gérer le bouton d'ajout au panier
+    const addToCartBtn = document.getElementById('add-to-cart');
+    if (addToCartBtn) {
+        addToCartBtn.addEventListener('click', function() {
+            // Récupérer les données du produit
+            const productId = new URLSearchParams(window.location.search).get('id');
+            const quantity = document.getElementById('quantity-input').value;
+            const selectedColor = document.querySelector('.color-option.active')?.getAttribute('data-color');
+            const selectedSize = document.querySelector('.size-option.active')?.getAttribute('data-size');
+            
+            // Ajouter au panier (simulé pour l'instant)
+            alert('Produit ajouté au panier!');
+            
+            // Mettre à jour le compteur du panier
+            const cartCount = document.getElementById('cart-count');
+            if (cartCount) {
+                cartCount.textContent = parseInt(cartCount.textContent) + 1;
+            }
+        });
+    }
+    
+    // Gérer le bouton d'ajout aux favoris
+    const wishlistBtn = document.getElementById('add-to-wishlist');
+    if (wishlistBtn) {
+        wishlistBtn.addEventListener('click', function() {
+            const icon = wishlistBtn.querySelector('img');
+            if (icon.src.includes('favorite_border.png')) {
+                icon.src = '../icons/favorite.png';
+                wishlistBtn.innerHTML = wishlistBtn.innerHTML.replace('Ajouter aux favoris', 'Retiré des favoris');
+            } else {
+                icon.src = '../icons/favorite_border.png';
+                wishlistBtn.innerHTML = wishlistBtn.innerHTML.replace('Retiré des favoris', 'Ajouter aux favoris');
+            }
+        });
+    }
+}
 
 // Fonction pour afficher les détails du produit
 function displayProductDetails(product) {

@@ -1,4 +1,4 @@
-const url = 'http://localhost:3000';
+
 
 document.addEventListener('DOMContentLoaded', function () {
     // Gestion du header transparent qui devient opaque au défilement
@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const logo = document.querySelector('.logo');
     if (logo) {
         logo.addEventListener('click', function () {
-            window.location.href = '/templates/home.html';
+            window.location.href = '../templates/home.html';
         });
         logo.style.cursor = 'pointer';
     }
@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const profileIcon = document.querySelector('.header-right img[alt="person-icon"]');
     if (profileIcon) {
         profileIcon.addEventListener('click', function () {
-            window.location.href = '/templates/profile.html';
+            window.location.href = '../templates/profile.html';
         });
     }
 
