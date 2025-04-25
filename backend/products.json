@@ -39,7 +39,7 @@
                     "currency": "€",
                     "images": [
                         "/img/Collier-Reconnaissance-Plaqué-Argent.jpg",
-                        "/img/Collier-Reconnaissance-Plaqué-Argent-(1).jpg"
+                        "/img/Collier-Reconnaissance-Plaqué-Argent(1).jpg"
                     ],
                     "characteristics": {
                         "gender": "homme",
@@ -64,11 +64,11 @@
                     "images": [
                         "/img/Bracelet-Ellipse.jpg",
                         "/img/Bracelet-Ellipse-Bleu.jpg",
-                        "/img/Bracelet-Ellipse-Bleu-(1).jpg",
+                        "/img/Bracelet-Ellipse-Bleu(1).jpg",
                         "/img/Bracelet-Ellipse-Marron.jpg",
-                        "/img/Bracelet-Ellipse-Marron-(1).jpg",
+                        "/img/Bracelet-Ellipse-Marron(1).jpg",
                         "/img/Bracelet-Ellipse-Blanc.jpg",
-                        "/img/Bracelet-Ellipse-Blanc-(1).jpg"
+                        "/img/Bracelet-Ellipse-Blanc(1).jpg"
                     ],
                     "characteristics": {
                         "gender": "homme",
@@ -96,9 +96,9 @@
                     "currency": "€",
                     "images": [
                         "/img/Bracelet-Metamorph.webp",
-                        "/img/Bracelet-Metamorph-(1).webp",
-                        "/img/Bracelet-Metamorph-(2).webp",
-                        "/img/Bracelet-Metamorph-(3).webp"
+                        "/img/Bracelet-Metamorph(1).webp",
+                        "/img/Bracelet-Metamorph(2).webp",
+                        "/img/Bracelet-Metamorph(3).webp"
                     ],
                     "characteristics": {
                         "gender": "homme",
@@ -124,8 +124,8 @@
                     "currency": "€",
                     "images": [
                         "/img/Chevalière.jpeg",
-                        "/img/Chevalière-(1).jpeg",
-                        "/img/Chevalière-(2).jpeg"
+                        "/img/Chevalière(1).jpeg",
+                        "/img/Chevalière(2).jpeg"
                     ],
                     "characteristics": {
                         "gender": "homme",
@@ -220,10 +220,10 @@
                     "discount": 0,
                     "currency": "€",
                     "images": [
-                        "/img/Bague-de-fiancailles-Gisu-Oval(1).png",
-                        "/img/Bague-de-fiancailles-Gisu-Oval(2).png",
-                        "/img/Bague-de-fiancailles-Gisu-Oval(3).png",
-                        "/img/Bague-de-fiancailles-Gisu-Oval(4).png"
+                        "/img/Bague-de-fiançailles-Gisu-Oval(1).png",
+                        "/img/Bague-de-fiançailles-Gisu-Oval(2).png",
+                        "/img/Bague-de-fiançailles-Gisu-Oval(3).png",
+                        "/img/Bague-de-fiançailles-Gisu-Oval(4).png"
                     ],
                     "characteristics": {
                         "gender": "femme",
@@ -246,11 +246,11 @@
                     "discount": 10,
                     "currency": "€",
                     "images": [
-                        "/img/Bague-de-fiancailles-Gisu-Round(1).png",
-                        "/img/Bague-de-fiancailles-Gisu-Round(2).png",
-                        "/img/Bague-de-fiancailles-Gisu-Round(3).png",
-                        "/img/Bague-de-fiancailles-Gisu-Round(4).png",
-                        "/img/Bague-de-fiancailles-Gisu-Round(5).png"
+                        "/img/Bague-de-fiançailles-Gisu-Round(1).jpeg",
+                        "/img/Bague-de-fiançailles-Gisu-Round(2).jpeg",
+                        "/img/Bague-de-fiançailles-Gisu-Round(3).jpeg",
+                        "/img/Bague-de-fiançailles-Gisu-Round(4).jpeg",
+                        "/img/Bague-de-fiançailles-Gisu-Round(5).jpeg"
                     ],
                     "characteristics": {
                         "gender": "femme",
@@ -273,9 +273,9 @@
                     "discount": 10,
                     "currency": "€",
                     "images": [
-                        "/img/Bracelet_Azylis_Argent_Blanc_Oxyde_De_Zirconium(1).png",
-                        "/img/Bracelet_Azylis_Argent_Blanc_Oxyde_De_Zirconium(2).png",
-                        "/img/Bracelet_Azylis_Argent_Blanc_Oxyde_De_Zirconium(3).png"
+                        "/img/Bracelet_Azylis_Argent_Blanc_Oxyde_De_Zirconium(1).jpeg",
+                        "/img/Bracelet_Azylis_Argent_Blanc_Oxyde_De_Zirconium(2).jpeg",
+                        "/img/Bracelet_Azylis_Argent_Blanc_Oxyde_De_Zirconium(3).jpeg"
                     ],
                     "characteristics": {
                         "gender": "femme",
@@ -299,9 +299,9 @@
                     "discount": 10,
                     "currency": "€",
                     "images": [
-                        "/img/Polka_Gold_Silver_Bracelet(1).png",
-                        "/img/Polka_Gold_Silver_Bracelet(2).png",
-                        "/img/Polka_Gold_Silver_Bracelet(3).png"
+                        "/img/Polka_Gold_Silver_Bracelet(1).jpeg",
+                        "/img/Polka_Gold_Silver_Bracelet(2).jpeg",
+                        "/img/Polka_Gold_Silver_Bracelet(3).jpeg"
                     ],
                     "characteristics": {
                         "gender": "femme",
