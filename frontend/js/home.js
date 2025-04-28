@@ -1,16 +1,11 @@
-const url = 'http://localhost:5000';
-
 document.addEventListener('DOMContentLoaded', function () {
     // Récupération des bijoux depuis l'API
     fetchJewelry();
-    
-    // Configuration des contrôles pour le carousel CSS
-    setupCarouselControls();
 });
 
 // Fonction pour récupérer les bijoux de l'API
 function fetchJewelry() {
-    fetch(`${url}/jewelry`)
+    fetch(`${window.API_URL}/jewelry`)
         .then(response => {
             if (!response.ok) {
                 throw new Error('Erreur lors de la récupération des bijoux');
@@ -18,7 +13,7 @@ function fetchJewelry() {
             return response.json();
         })
         .then(data => {
-            // Initialiser le carrousel CSS
+            // Initialiser les bijoux dans le carrousel Swiper
             initJewelryCarousel(data.jewelry);
         })
         .catch(error => {
@@ -26,72 +21,7 @@ function fetchJewelry() {
         });
 }
 
-// Configuration des contrôles pour le carousel CSS
-function setupCarouselControls() {
-    // Gestion des boutons suivant/précédent
-    document.addEventListener('click', function(e) {
-        if (e.target.closest('.swiper-button-next')) {
-            moveCarousel('next');
-            e.preventDefault();
-        } else if (e.target.closest('.swiper-button-prev')) {
-            moveCarousel('prev');
-            e.preventDefault();
-        } else if (e.target.classList.contains('swiper-pagination-bullet')) {
-            // Gérer la pagination
-            const bullets = document.querySelectorAll('.swiper-pagination-bullet');
-            const index = Array.from(bullets).indexOf(e.target);
-            
-            // Mise à jour de la classe active
-            bullets.forEach((bullet, i) => {
-                bullet.classList.toggle('swiper-pagination-bullet-active', i === index);
-            });
-            
-            // Déplacer le carousel à la position correspondante
-            const totalSections = bullets.length;
-            moveCarouselToPosition(index / totalSections);
-        }
-    });
-}
-
-// Fonction pour déplacer le carousel manuellement
-function moveCarousel(direction) {
-    const carousel = document.querySelector('.swiper-wrapper');
-    if (!carousel) return;
-    
-    // Arrêter l'animation
-    carousel.style.animationPlayState = 'paused';
-    
-    // Récupérer la position actuelle
-    const computedStyle = window.getComputedStyle(carousel);
-    const transform = computedStyle.getPropertyValue('transform');
-    const matrix = new DOMMatrix(transform);
-    const currentPosition = matrix.m41; // La valeur de translation X
-    
-    // Calculer le déplacement
-    const slideWidth = document.querySelector('.swiper-slide').offsetWidth + 20; // 20px de marge
-    const move = direction === 'next' ? -slideWidth : slideWidth;
-    
-    // Appliquer le nouveau déplacement
-    carousel.style.transform = `translateX(${currentPosition + move}px)`;
-}
-
-// Déplacer le carousel à une position spécifique (0-1)
-function moveCarouselToPosition(percentage) {
-    const carousel = document.querySelector('.swiper-wrapper');
-    if (!carousel) return;
-    
-    // Arrêter l'animation
-    carousel.style.animationPlayState = 'paused';
-    
-    // Calculer le max scroll (basé sur l'animation)
-    const slideWidth = document.querySelector('.swiper-slide').offsetWidth + 20;
-    const totalWidth = slideWidth * 10; // Correspondant à l'animation CSS
-    
-    // Appliquer la nouvelle position
-    carousel.style.transform = `translateX(${-percentage * totalWidth}px)`;
-}
-
-// Fonction pour initialiser le carousel CSS avec les produits
+// Fonction pour initialiser le carousel avec les produits
 function initJewelryCarousel(jewelry) {
     // Sélectionner le conteneur
     const swiperWrapper = document.querySelector('.jewelrySwiper .swiper-wrapper');
@@ -119,11 +49,18 @@ function initJewelryCarousel(jewelry) {
             ? `<p class="price"><span class="original-price">${jewel.price}${jewel.currency}</span> ${(jewel.price * (1 - jewel.discount / 100)).toFixed(2)}${jewel.currency}</p>`
             : `<p class="price">${jewel.price}${jewel.currency}</p>`;
             
-        // Utiliser la première image ou une image par défaut
-        const imgSrc = jewel.images && jewel.images.length > 0
-            ? `${url}${jewel.images[0]}`
-            : `${url}/img/default.jpg`;
+        // Stocker toutes les images du produit dans un attribut data
+        const allImages = jewel.images && jewel.images.length > 0 
+            ? jewel.images.map(img => `${window.API_URL}${img}`)
+            : [`${window.API_URL}/img/default.jpg`];
             
+        // Utiliser la première image comme image par défaut
+        const imgSrc = allImages[0];
+            
+        // Vérifier si le produit est dans les favoris - utiliser la fonction centralisée
+        const isFavorite = isInFavorites(jewel.id);
+        const favoriteIcon = isFavorite ? '../icons/favorite.png' : '../icons/favorite_border.png';
+
         // Badge pour les produits en promotion
         const discountBadge = jewel.discount > 0
             ? `<div class="product-badge">-${jewel.discount}%</div>`
@@ -131,66 +68,155 @@ function initJewelryCarousel(jewelry) {
             
         // Structure HTML pour le slide
         slide.innerHTML = `
-            <div class="product-card">
-                <div class="product-image">
-                    ${discountBadge}
-                    <img src="${imgSrc}" alt="${jewel.name}">
+        <div class="product-card">
+            <div class="product-image" data-images='${JSON.stringify(allImages)}' data-current-index="0">
+                ${discountBadge}
+                <div class="favorite-icon product-badge" data-id="${jewel.id}" style="right: 10px; left: auto;">
+                    <img src="${favoriteIcon}" alt="Favoris" class="${isFavorite ? 'favorite-active' : ''}">
+                </div>
+                <img src="${imgSrc}" alt="${jewel.name}" class="product-main-image">
+                <div class="product-actions">
                     <div class="add-to-cart">Ajouter au panier</div>
                 </div>
-                <div class="product-info">
-                    <h3>${jewel.name}</h3>
-                    ${price}
-                </div>
             </div>
+            <div class="product-info">
+                <h3>${jewel.name}</h3>
+                ${price}
+            </div>
+        </div>
         `;
-        
-        // Gérer les clics sur le slide
-        slide.addEventListener('click', (e) => {
-            // Ne pas naviguer si on clique sur le coeur ou le bouton d'ajout au panier
-            if (e.target.closest('.favorite-icon') || e.target.closest('.add-to-cart')) {
-                e.stopPropagation();
-                return;
-            }
-            window.location.href = `../templates/product.html?id=${jewel.id}`;
-        });
         
         // Ajouter le slide au wrapper
         swiperWrapper.appendChild(slide);
     });
+
+    // Initialiser Swiper après avoir ajouté tous les slides
+    initSwiper();
+}
+
+// Fonction pour initialiser Swiper
+function initSwiper() {
+    // Détruire l'instance existante si elle existe
+    if (window.jewelrySwiper) {
+        window.jewelrySwiper.destroy(true, true);
+    }
     
-    // Dupliquer les slides pour l'effet infini
-    const slides = Array.from(swiperWrapper.querySelectorAll('.swiper-slide'));
+    // Créer une nouvelle instance Swiper avec les options souhaitées
+    window.jewelrySwiper = new Swiper('.jewelrySwiper', {
+        slidesPerView: 'auto',
+        spaceBetween: 20,
+        loop: true,
+        grabCursor: true,
+        autoplay: {
+            delay: 3000,
+            disableOnInteraction: false,
+        },
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+        },
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+        breakpoints: {
+            576: {
+                slidesPerView: 2,
+            },
+            768: {
+                slidesPerView: 3,
+            },
+            992: {
+                slidesPerView: 4,
+            }
+        }
+    });
+    
+    // Ajouter les événements sur les éléments du carousel
+    addCarouselEvents();
+}
+
+
+// Ajouter les événements pour les favoris et autres actions
+function addCarouselEvents() {
+    const slides = document.querySelectorAll('.swiper-slide');
+    
     slides.forEach(slide => {
-        const clone = slide.cloneNode(true);
+        const productImage = slide.querySelector('.product-image');
+        const mainImage = slide.querySelector('.product-main-image');
         
-        // Ajouter les mêmes event listeners au clone
-        clone.addEventListener('click', (e) => {
-            if (e.target.closest('.favorite-icon') || e.target.closest('.add-to-cart')) {
+        // Gérer le hover sur l'image du produit
+        productImage.addEventListener('mouseenter', function() {
+            // Arrêter l'autoplay du Swiper
+            if (window.jewelrySwiper && window.jewelrySwiper.autoplay) {
+                window.jewelrySwiper.autoplay.stop();
+            }
+            
+            // Changer pour la deuxième image si disponible
+            if (this.dataset.images) {
+                const images = JSON.parse(this.dataset.images);
+                if (images.length > 1) {
+                    // Passer simplement à la deuxième image
+                    mainImage.style.opacity = '0.7';
+                    setTimeout(() => {
+                        mainImage.src = images[1]; // Afficher la seconde image
+                        mainImage.style.opacity = '1';
+                    }, 150);
+                }
+            }
+        });
+        
+        // Revenir à l'image originale quand la souris quitte le produit
+        productImage.addEventListener('mouseleave', function() {
+            // Redémarrer l'autoplay du Swiper
+            if (window.jewelrySwiper && window.jewelrySwiper.autoplay) {
+                window.jewelrySwiper.autoplay.start();
+            }
+            
+            // Remettre la première image
+            if (this.dataset.images) {
+                const images = JSON.parse(this.dataset.images);
+                mainImage.style.opacity = '0.7';
+                setTimeout(() => {
+                    mainImage.src = images[0]; // Revenir à l'image principale
+                    mainImage.style.opacity = '1';
+                }, 150);
+            }
+        });
+        
+        // Gérer les clics sur le slide
+        slide.addEventListener('click', (e) => {
+            const favoriteIcon = e.target.closest('.favorite-icon');
+            if (favoriteIcon) {
+                e.stopPropagation();
+                const jewelId = parseInt(favoriteIcon.dataset.id, 10);
+                
+                // Basculer l'état des favoris avec la fonction centralisée
+                const isNowFavorite = toggleFavorite(jewelId);
+                
+                // Mettre à jour l'icône
+                const iconImg = favoriteIcon.querySelector('img');
+                
+                if (isNowFavorite) {
+                    iconImg.src = '../icons/favorite_full.png';
+                    iconImg.classList.add('favorite-active');
+                } else {
+                    iconImg.src = '../icons/favorite_empty.png';
+                    iconImg.classList.remove('favorite-active');
+                }
+                
+                return;
+            }
+            
+            // Ne pas naviguer si on clique sur le bouton d'ajout au panier
+            if (e.target.closest('.add-to-cart')) {
                 e.stopPropagation();
                 return;
             }
+            
+            // Navigation vers la page produit
             const jewelId = slide.dataset.jewelId;
             window.location.href = `../templates/product.html?id=${jewelId}`;
         });
-        
-        swiperWrapper.appendChild(clone);
     });
-    
-    // Créer les éléments de pagination
-    createPaginationBullets(Math.min(5, Math.ceil(validJewelry.length / 4)));
-}
-
-// Créer les éléments de pagination
-function createPaginationBullets(count) {
-    const paginationContainer = document.querySelector('.swiper-pagination');
-    if (!paginationContainer) return;
-    
-    paginationContainer.innerHTML = '';
-    
-    for (let i = 0; i < count; i++) {
-        const bullet = document.createElement('span');
-        bullet.className = 'swiper-pagination-bullet';
-        if (i === 0) bullet.classList.add('swiper-pagination-bullet-active');
-        paginationContainer.appendChild(bullet);
-    }
 }

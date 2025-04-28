@@ -1,0 +1,269 @@
+/* Styles pour la page de favoris */
+
+.favorites-main {
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.favorites-section h1 {
+    margin-bottom: 2rem;
+    font-size: 2rem;
+    font-weight: 600;
+    color: #333;
+}
+
+/* Grille de favoris */
+.favorites-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 30px;
+    margin-bottom: 2rem;
+}
+
+/* Carte de produit favori */
+.favorite-card {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+    position: relative;
+}
+
+.favorite-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+}
+
+/* Animation de suppression */
+.favorite-card.removing {
+    opacity: 0;
+    transform: scale(0.8);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.favorite-image {
+    position: relative;
+    height: 200px;
+    overflow: hidden;
+}
+
+.favorite-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.favorite-card:hover .favorite-image img {
+    transform: scale(1.05);
+}
+
+.product-badge {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background-color: #ff4f4f;
+    color: white;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    z-index: 1;
+}
+
+.favorite-actions {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.favorite-card:hover .favorite-actions {
+    opacity: 1;
+}
+
+.add-to-cart-btn {
+    background-color: #8e2de2;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 12px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+}
+
+.add-to-cart-btn:hover {
+    background-color: #6a0dad;
+}
+
+.remove-favorite-btn {
+    background-color: rgba(255, 255, 255, 0.3);
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.remove-favorite-btn:hover {
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+.remove-favorite-btn img {
+    width: 15px;
+    height: 15px;
+}
+
+.favorite-info {
+    padding: 15px;
+}
+
+.favorite-info h3 {
+    margin: 0 0 8px;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #333;
+}
+
+.price {
+    font-weight: 600;
+    color: #333;
+    margin: 0 0 5px;
+}
+
+.original-price {
+    text-decoration: line-through;
+    color: #999;
+    margin-right: 8px;
+    font-size: 0.9em;
+}
+
+.favorite-type {
+    margin: 5px 0 0;
+    font-size: 0.85rem;
+    color: #666;
+    text-transform: capitalize;
+}
+
+/* Message quand la liste est vide */
+.empty-favorites {
+    text-align: center;
+    padding: 3rem 1rem;
+    background-color: #f8f8f8;
+    border-radius: 10px;
+    margin: 2rem 0;
+}
+
+.empty-favorites img {
+    width: 60px;
+    height: 60px;
+    opacity: 0.5;
+    margin-bottom: 1rem;
+}
+
+.empty-favorites p {
+    margin-bottom: 1.5rem;
+    font-size: 1.1rem;
+    color: #666;
+}
+
+.empty-favorites .btn {
+    display: inline-block;
+}
+
+.hidden {
+    display: none;
+}
+
+/* Styles pour le compteur de favoris */
+.favorites-count {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background-color: #ff4f4f;
+    color: white;
+    font-size: 0.7rem;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.header-right a {
+    position: relative;
+    display: inline-block;
+}
+
+/* Bouton principal */
+.btn {
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: none;
+}
+
+.primary-btn {
+    background: linear-gradient(135deg, #8e2de2, #4a00e0);
+    color: white;
+    text-decoration: none;
+}
+
+.primary-btn:hover {
+    background: linear-gradient(135deg, #7d28c7, #3b00b3);
+    transform: translateY(-2px);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .favorites-grid {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 15px;
+    }
+    
+    .favorite-image {
+        height: 150px;
+    }
+    
+    .favorite-info h3 {
+        font-size: 0.9rem;
+    }
+    
+    .add-to-cart-btn {
+        padding: 5px 8px;
+        font-size: 0.7rem;
+    }
+    
+    .remove-favorite-btn {
+        width: 25px;
+        height: 25px;
+    }
+}
+
+@media (max-width: 480px) {
+    .favorites-main {
+        padding: 1rem;
+    }
+    
+    .favorites-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}

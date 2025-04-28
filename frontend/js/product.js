@@ -32,6 +32,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Initialiser les événements de la page            
     initPageEvents();
+    updateFavoritesCounter();
 });
 
 // Ajouter cette fonction qui manquait
@@ -109,15 +110,59 @@ function initPageEvents() {
     const wishlistBtn = document.getElementById('add-to-wishlist');
     if (wishlistBtn) {
         wishlistBtn.addEventListener('click', function() {
+            const productId = parseInt(new URLSearchParams(window.location.search).get('id'));
             const icon = wishlistBtn.querySelector('img');
+            
+            // Récupérer la liste actuelle des favoris
+            let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+            
             if (icon.src.includes('favorite_border.png')) {
+                // Ajouter aux favoris
+                if (!favorites.includes(productId)) {
+                    favorites.push(productId);
+                }
                 icon.src = '../icons/favorite.png';
-                wishlistBtn.innerHTML = wishlistBtn.innerHTML.replace('Ajouter aux favoris', 'Retiré des favoris');
+                wishlistBtn.innerHTML = wishlistBtn.innerHTML.replace('Ajouter aux favoris', 'Retirer des favoris');
             } else {
+                // Retirer des favoris
+                favorites = favorites.filter(id => id !== productId);
                 icon.src = '../icons/favorite_border.png';
-                wishlistBtn.innerHTML = wishlistBtn.innerHTML.replace('Retiré des favoris', 'Ajouter aux favoris');
+                wishlistBtn.innerHTML = wishlistBtn.innerHTML.replace('Retirer des favoris', 'Ajouter aux favoris');
             }
+            
+            // Sauvegarder dans localStorage
+            localStorage.setItem('favorites', JSON.stringify(favorites));
+            
+            // Mettre à jour le compteur de favoris
+            updateFavoritesCounter();
         });
+        
+        // Vérifier si le produit est déjà dans les favoris lors du chargement
+        const productId = parseInt(new URLSearchParams(window.location.search).get('id'));
+        const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+        
+        if (favorites.includes(productId)) {
+            const icon = wishlistBtn.querySelector('img');
+            icon.src = '../icons/favorite.png';
+            wishlistBtn.innerHTML = wishlistBtn.innerHTML.replace('Ajouter aux favoris', 'Retirer des favoris');
+        }
+    }
+}
+
+// Fonction à ajouter pour mettre à jour le compteur de favoris
+function updateFavoritesCounter() {
+    const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+    const counter = document.getElementById('favorites-count');
+    
+    if (counter) {
+        counter.textContent = favorites.length;
+        
+        // Masquer le compteur s'il est à zéro
+        if (favorites.length === 0) {
+            counter.style.display = 'none';
+        } else {
+            counter.style.display = 'inline-block';
+        }
     }
 }
 

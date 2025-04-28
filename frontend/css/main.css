@@ -267,18 +267,19 @@ footer {
 
 
 
-/* Sidebar now comes from the left */
+/* Styles pour le menu déroulant dans la sidebar */
 .sidebar {
-    position: fixed;
-    top: 0;
-    left: -280px;
+    /* Styles existants */
     width: 250px;
     height: 100%;
-    background-color: white;
-    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
-    padding: 30px 20px;
-    transition: left 0.3s ease-in-out;
-    z-index: 999;
+    position: fixed;
+    top: 0;
+    left: -250px;
+    background-color: #fff;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    transition: left 0.3s ease;
+    z-index: 1000;
+    padding: 20px;
 }
 
 .sidebar.active {
@@ -287,29 +288,72 @@ footer {
 
 .close-btn {
     font-size: 24px;
-    text-align: right;
     cursor: pointer;
-    color: #333;
-    margin-bottom: 30px;
+    text-align: right;
+    margin-bottom: 20px;
 }
 
 .sidebar nav ul {
     list-style: none;
     padding: 0;
+    margin: 0;
 }
 
 .sidebar nav ul li {
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
-.sidebar nav ul li a {
+.sidebar nav ul li a, 
+.sidebar nav ul li .menu-link {
     text-decoration: none;
     color: #333;
-    font-size: 18px;
+    display: block;
+    padding: 8px 0;
     font-weight: 500;
+    cursor: pointer;
     transition: color 0.3s;
 }
 
-.sidebar nav ul li a:hover {
-    color: #d4af37;
+.sidebar nav ul li a:hover,
+.sidebar nav ul li .menu-link:hover {
+    color: #a8741a;
+}
+
+/* Styles pour les sous-menus */
+.has-submenu {
+    position: relative;
+}
+
+.has-submenu .menu-link::after {
+    content: '+';
+    position: absolute;
+    right: 10px;
+    transition: transform 0.3s;
+}
+
+.has-submenu .menu-link.active::after {
+    transform: rotate(45deg);
+}
+
+.submenu {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+    padding-left: 15px;
+}
+
+.submenu.active {
+    max-height: 200px; /* Ajustez selon vos besoins */
+}
+
+.submenu-item {
+    padding: 8px 0;
+    font-size: 0.9em;
+    color: #555;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.submenu-item:hover {
+    color: #a8741a;
 }

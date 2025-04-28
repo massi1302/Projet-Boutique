@@ -4,13 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/home.css">
+    <link rel="stylesheet" href="../css/category.css">
     <link rel="stylesheet" href="../css/main.css">
     <link rel="stylesheet" href="../css/search.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-    <title>Luce Preziosa</title>
+    <title>Luce Preziosa - Category</title>
 </head>
 
 <body>
@@ -22,35 +21,35 @@
                     <div class="close-btn" id="closeBtn">&times;</div>
                     <nav>
                         <ul>
-                            <li class="has-submenu" data-category="rings">
-                                <a href="#" class="menu-link">Bagues</a>
+                            <li class="has-submenu" data-category="bague">
+                                <a href="#" class="menu-link">Rings</a>
                                 <ul class="submenu">
-                                    <li class="submenu-item" data-gender="men">Homme</li>
-                                    <li class="submenu-item" data-gender="women">Femme</li>
+                                    <li class="submenu-item" data-gender="men">Men's Rings</li>
+                                    <li class="submenu-item" data-gender="women">Women's Rings</li>
                                 </ul>
                             </li>
                             <li class="has-submenu" data-category="earrings">
-                                <a href="#" class="menu-link">Boucle d'oreilles</a>
+                                <a href="#" class="menu-link">Earrings</a>
                                 <ul class="submenu">
-                                    <li class="submenu-item" data-gender="men">Homme</li>
-                                    <li class="submenu-item" data-gender="women">Femme</li>
+                                    <li class="submenu-item" data-gender="men">Men's Earrings</li>
+                                    <li class="submenu-item" data-gender="women">Women's Earrings</li>
                                 </ul>
                             </li>
-                            <li class="has-submenu" data-category="necklaces">
-                                <a href="#" class="menu-link">Collier</a>
+                            <li class="has-submenu" data-category="collier">
+                                <a href="#" class="menu-link">Necklaces</a>
                                 <ul class="submenu">
-                                    <li class="submenu-item" data-gender="men">Homme</li>
-                                    <li class="submenu-item" data-gender="women">Femme</li>
+                                    <li class="submenu-item" data-gender="men">Men's Necklaces</li>
+                                    <li class="submenu-item" data-gender="women">Women's Necklaces</li>
                                 </ul>
                             </li>
-                            <li class="has-submenu" data-category="bracelets">
+                            <li class="has-submenu" data-category="bracelet">
                                 <a href="#" class="menu-link">Bracelets</a>
                                 <ul class="submenu">
-                                    <li class="submenu-item" data-gender="men">Homme</li>
-                                    <li class="submenu-item" data-gender="women">Femme</li>
+                                    <li class="submenu-item" data-gender="men">Men's Bracelets</li>
+                                    <li class="submenu-item" data-gender="women">Women's Bracelets</li>
                                 </ul>
                             </li>
-                            <li><a href="#">Montres</a></li>
+                            <li><a href="#">Watches</a></li>
                         </ul>
                     </nav>
                 </div>
@@ -75,35 +74,43 @@
     </header>
 
     <main>
-        <div class="hero-section">
-            <div class="hero-image">
-                <img src="../images/Home-page.jpg" alt="Luce Preziosa Collection">
+        <div class="category-header">
+            <h1 id="category-title">Category Products</h1>
+            <p id="category-description">Browse our selection of high-quality jewelry</p>
+        </div>
+
+        <div class="filter-section">
+            <div class="filter-container">
+                <select id="sort-filter">
+                    <option value="default">Sort By</option>
+                    <option value="price-low">Price (Low to High)</option>
+                    <option value="price-high">Price (High to Low)</option>
+                    <option value="newest">Newest</option>
+                </select>
+                
+                <div class="filter-group">
+                    <div class="filter-title">Material</div>
+                    <div class="filter-options">
+                        <label><input type="checkbox" value="gold"> Gold</label>
+                        <label><input type="checkbox" value="silver"> Silver</label>
+                        <label><input type="checkbox" value="stainless"> Stainless Steel</label>
+                    </div>
+                </div>
+                
+                <div class="filter-group">
+                    <div class="filter-title">Price Range</div>
+                    <div class="filter-options">
+                        <label><input type="checkbox" value="0-50"> €0 - €50</label>
+                        <label><input type="checkbox" value="50-100"> €50 - €100</label>
+                        <label><input type="checkbox" value="100+"> €100+</label>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <section class="featured-products">
-            <h2>Nos produits phares</h2>
-            <div class="jewelrySwiper swiper">
-                <div class="swiper-wrapper">
-                    <!-- Les slides seront générés dynamiquement par JavaScript -->
-                </div>
-                
-                <!-- Navigation buttons -->
-                <div class="swiper-button-next"></div>
-                <div class="swiper-button-prev"></div>
-                
-                <!-- Pagination -->
-                <div class="swiper-pagination"></div>
-            </div>
-        </section>
-
-        <section class="collection-banner">
-            <div class="banner-content">
-                <h2>Notre Histoire</h2>
-                <p>Découvrez l'artisanat et la passion derrière chaque création</p>
-                <button class="banner-btn">En savoir plus</button>
-            </div>
-        </section>
+        <div class="products-grid" id="products-container">
+   
+        </div>
     </main>
 
     <footer>
@@ -140,9 +147,9 @@
             <p>&copy; 2025 Luce Preziosa. Tous droits réservés.</p>
         </div>
     </footer>
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-    <script src="../js/home.js"></script>
+
     <script src="../js/main.js"></script>
+    <script src="../js/category.js"></script>
 </body>
 
 </html>
