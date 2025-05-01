@@ -7,11 +7,17 @@
     <title>Checkout - Luce Preziosa</title>
     <link rel="stylesheet" href="../css/main.css">
     <link rel="stylesheet" href="../css/payment.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
 </head>
 
 <body>
     <header>
-        <!-- Header content from other pages -->
+        <div class="header-left">
+            <div class="logo">
+                <h1>Luce Preziosa</h1>
+            </div>
+        </div>
     </header>
 
     <main>
@@ -19,6 +25,10 @@
             <div class="payment-header">
                 <h2>Finaliser votre commande</h2>
                 <p>Veuillez entrer vos informations de paiement</p>
+            </div>
+
+            <div class="cart-items-summary">
+                <!-- Cart items will be displayed here -->
             </div>
 
             <div class="payment-summary">
@@ -62,13 +72,42 @@
         </div>
     </main>
 
-    <footer>
-        <!-- Footer content from other pages -->
-    </footer>
-
     <script src="../js/main.js"></script>
     <script src="../js/shoppingCart.js"></script>
     <script src="../js/payment.js"></script>
+    <script>
+        // Display cart items on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            const cartItemsSummary = document.querySelector('.cart-items-summary');
+            const subtotalElement = document.getElementById('subtotal');
+            const totalElement = document.getElementById('total');
+
+            // Get cart items from localStorage
+            const cartItems = JSON.parse(localStorage.getItem('cart')) || [];
+
+            // Display cart items
+            cartItemsSummary.innerHTML = cartItems.map(item => `
+                <div class="cart-item-row">
+                    <img src="${item.image}" alt="${item.name}">
+                    <div class="item-details">
+                        <h3>${item.name}</h3>
+                        <p>Quantité: ${item.quantity}</p>
+                        <p>Prix: ${(item.price * item.quantity).toFixed(2)}€</p>
+                    </div>
+                </div>
+            `).join('');
+
+            // Calculate and display totals
+            const total = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            subtotalElement.textContent = `${total.toFixed(2)}€`;
+            totalElement.textContent = `${total.toFixed(2)}€`;
+
+            // Redirect to home if cart is empty
+            if (cartItems.length === 0) {
+                window.location.href = '../templates/home.html';
+            }
+        });
+    </script>
 </body>
 
 </html>
