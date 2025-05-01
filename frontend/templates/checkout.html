@@ -6,7 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Checkout - Luce Preziosa</title>
     <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/search.css">
     <link rel="stylesheet" href="../css/payment.css">
+    <link rel="stylesheet" href="../css/shoppingCart.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
 </head>
@@ -14,9 +16,60 @@
 <body>
     <header>
         <div class="header-left">
-            <div class="logo">
-                <h1>Luce Preziosa</h1>
+            <div class="menu-container">
+                <img id="menu-button" src="../icons/menu.png" alt="Menu-icon">
+                <div class="sidebar" id="sidebar">
+                    <div class="close-btn" id="closeBtn">&times;</div>
+                    <nav>
+                        <ul>
+                            <li class="has-submenu" data-category="bague">
+                                <a href="#" class="menu-link">Bagues</a>
+                                <ul class="submenu">
+                                    <li class="submenu-item" data-gender="men">Homme</li>
+                                    <li class="submenu-item" data-gender="women">Femme</li>
+                                </ul>
+                            </li>
+                            <li class="has-submenu" data-category="earrings">
+                                <a href="#" class="menu-link">Boucle d'oreilles</a>
+                                <ul class="submenu">
+                                    <li class="submenu-item" data-gender="men">Homme</li>
+                                    <li class="submenu-item" data-gender="women">Femme</li>
+                                </ul>
+                            </li>
+                            <li class="has-submenu" data-category="necklaces">
+                                <a href="#" class="menu-link">Collier</a>
+                                <ul class="submenu">
+                                    <li class="submenu-item" data-gender="men">Homme</li>
+                                    <li class="submenu-item" data-gender="women">Femme</li>
+                                </ul>
+                            </li>
+                            <li class="has-submenu" data-category="bracelets">
+                                <a href="#" class="menu-link">Bracelets</a>
+                                <ul class="submenu">
+                                    <li class="submenu-item" data-gender="men">Homme</li>
+                                    <li class="submenu-item" data-gender="women">Femme</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
             </div>
+            <div class="search-container">
+                <div class="search" tabindex="0">
+                    <input type="text" class="search__input" aria-label="search" placeholder="Rechercher...">
+                    <button class="search__submit" aria-label="submit search">
+                        <img src="../icons/search.png" alt="search-icon">
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="logo">
+            <h1>Luce Preziosa</h1>
+        </div>
+        <div class="header-right">
+            <img src="../icons/person.png" alt="person-icon">
+            <img src="../icons/favorite.png" alt="favorite-icon">
+            <img src="../icons/shopping_bag.png" alt="shopping_bag-icon">
         </div>
     </header>
 
@@ -76,7 +129,6 @@
     <script src="../js/shoppingCart.js"></script>
     <script src="../js/payment.js"></script>
     <script>
-        // Display cart items on page load
         document.addEventListener('DOMContentLoaded', () => {
             const cartItemsSummary = document.querySelector('.cart-items-summary');
             const subtotalElement = document.getElementById('subtotal');
@@ -86,29 +138,38 @@
             const cartItems = JSON.parse(localStorage.getItem('cart')) || [];
 
             // Display cart items
-            cartItemsSummary.innerHTML = cartItems.map(item => `
-                <div class="cart-item-row">
-                    <img src="${item.image}" alt="${item.name}">
-                    <div class="item-details">
-                        <h3>${item.name}</h3>
-                        <p>Quantité: ${item.quantity}</p>
-                        <p>Prix: ${(item.price * item.quantity).toFixed(2)}€</p>
-                    </div>
-                </div>
-            `).join('');
+            if (cartItems.length > 0) {
+                cartItemsSummary.innerHTML = cartItems.map(item => {
+                    const itemPrice = Number(item.price);
+                    const itemQuantity = Number(item.quantity);
+                    const itemTotal = itemPrice * itemQuantity;
 
-            // Calculate and display totals
-            const total = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-            subtotalElement.textContent = `${total.toFixed(2)}€`;
-            totalElement.textContent = `${total.toFixed(2)}€`;
+                    return `
+                        <div class="cart-item-row">
+                            <img src="${item.image}" alt="${item.name}">
+                            <div class="item-details">
+                                <h3>${item.name}</h3>
+                                <p>Prix unitaire: ${itemPrice.toFixed(2)}€</p>
+                                <p>Quantité: ${itemQuantity}</p>
+                                <p>Total: ${itemTotal.toFixed(2)}€</p>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
 
-            // Redirect to home if cart is empty
-            if (cartItems.length === 0) {
+                // Calculate and display totals
+                const total = cartItems.reduce((sum, item) => {
+                    return sum + (Number(item.price) * Number(item.quantity));
+                }, 0);
+
+                subtotalElement.textContent = `${total.toFixed(2)}€`;
+                totalElement.textContent = `${total.toFixed(2)}€`;
+            } else {
+                // Redirect to home if cart is empty
                 window.location.href = '../templates/home.html';
             }
         });
     </script>
-    
 </body>
 
 </html>
