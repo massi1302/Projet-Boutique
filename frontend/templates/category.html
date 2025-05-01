@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="../css/category.css">
     <link rel="stylesheet" href="../css/main.css">
     <link rel="stylesheet" href="../css/search.css">
+    <link rel="stylesheet" href="../css/shoppingCart.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
     <title>Luce Preziosa - Category</title>
@@ -14,7 +15,7 @@
 
 <body>
     <header>
-        <div class="header-left"> 
+        <div class="header-left">
             <div class="menu-container">
                 <img id="menu-button" src="../icons/menu.png" alt="Menu-icon">
                 <div class="sidebar" id="sidebar">
@@ -87,29 +88,28 @@
                     <option value="price-high">Price (High to Low)</option>
                     <option value="newest">Newest</option>
                 </select>
-                
-                <div class="filter-group">
-                    <div class="filter-title">Material</div>
-                    <div class="filter-options">
-                        <label><input type="checkbox" value="gold"> Gold</label>
-                        <label><input type="checkbox" value="silver"> Silver</label>
-                        <label><input type="checkbox" value="stainless"> Stainless Steel</label>
-                    </div>
-                </div>
-                
+
                 <div class="filter-group">
                     <div class="filter-title">Price Range</div>
                     <div class="filter-options">
-                        <label><input type="checkbox" value="0-50"> €0 - €50</label>
-                        <label><input type="checkbox" value="50-100"> €50 - €100</label>
-                        <label><input type="checkbox" value="100+"> €100+</label>
+                        <label><input type="checkbox" class="price-filter" value="0-50"> €0 - €50</label>
+                        <label><input type="checkbox" class="price-filter" value="50-100"> €50 - €100</label>
+                        <label><input type="checkbox" class="price-filter" value="100-500"> €100 - €500</label>
+                        <label><input type="checkbox" class="price-filter" value="500"> €500+</label>
+                    </div>
+                </div>
+
+                <div class="filter-group">
+                    <div class="filter-title">Material</div>
+                    <div class="filter-options" id="material-filters">
+                        <!-- Material filters will be populated dynamically -->
                     </div>
                 </div>
             </div>
         </div>
 
         <div class="products-grid" id="products-container">
-   
+            <!-- Products will be loaded here -->
         </div>
     </main>
 
@@ -150,6 +150,7 @@
 
     <script src="../js/main.js"></script>
     <script src="../js/category.js"></script>
+    <script src="../js/shoppingCart.js"></script>
 </body>
 
 </html>

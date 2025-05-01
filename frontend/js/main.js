@@ -16,6 +16,9 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
+    // Setup search functionality
+    setupSearch();
+
     // Animation pour faire apparaître les éléments au défilement
     const animateOnScroll = () => {
         const elements = document.querySelectorAll('.collection-banner, .footer-column');
@@ -78,32 +81,97 @@ document.addEventListener('DOMContentLoaded', function () {
     if (menuContainer) {
         menuContainer.addEventListener('click', function () {
             this.classList.toggle('active');
-            // Ici, vous pourriez ajouter code pour afficher un menu mobile
         });
     }
-    
+
     // Gestion des sous-menus dans la sidebar
     setupExpandableMenu();
 });
+
+// Search functionality
+function setupSearch() {
+    const searchInput = document.querySelector('.search__input');
+    const searchResults = document.createElement('div');
+    searchResults.className = 'search-results';
+    document.querySelector('.search').appendChild(searchResults);
+
+    let debounceTimer;
+
+    searchInput.addEventListener('input', function (e) {
+        clearTimeout(debounceTimer);
+        const query = e.target.value.trim();
+
+        if (query.length < 2) {
+            searchResults.style.display = 'none';
+            return;
+        }
+
+        debounceTimer = setTimeout(() => {
+            fetchSearchResults(query, searchResults);
+        }, 300);
+    });
+
+    // Close search results when clicking outside
+    document.addEventListener('click', function (e) {
+        if (!e.target.closest('.search')) {
+            searchResults.style.display = 'none';
+        }
+    });
+}
+
+async function fetchSearchResults(query, resultsContainer) {
+    try {
+        const response = await fetch(`${API_URL}/jewelry`);
+        const data = await response.json();
+
+        const results = data.jewelry.filter(item => {
+            const searchString = `${item.name} ${item.description} ${item.characteristics.type}`.toLowerCase();
+            return searchString.includes(query.toLowerCase());
+        }).slice(0, 5); // Limit to 5 results
+
+        displaySearchResults(results, resultsContainer);
+    } catch (error) {
+        console.error('Error fetching search results:', error);
+    }
+}
+
+function displaySearchResults(results, container) {
+    if (results.length === 0) {
+        container.style.display = 'none';
+        return;
+    }
+
+    container.innerHTML = results.map(item => `
+        <div class="search-result-item" onclick="window.location.href='../templates/product.html?id=${item.id}'">
+            <img src="${API_URL}${item.images[0]}" alt="${item.name}">
+            <div class="search-result-info">
+                <h4>${item.name}</h4>
+                <p>${item.price}${item.currency}</p>
+            </div>
+        </div>
+    `).join('');
+
+    container.style.display = 'block';
+}
 
 // Configuration des menus déroulants dans la sidebar
 function setupExpandableMenu() {
     // Sélectionner tous les éléments du menu qui ont des sous-catégories
     const menuItems = document.querySelectorAll('.has-submenu');
-    
+
     menuItems.forEach(item => {
         // Ajouter l'écouteur d'événement sur le lien parent
         const menuLink = item.querySelector('.menu-link');
-        
-        menuLink.addEventListener('click', function(e) {
+
+        menuLink.addEventListener('click', function (e) {
             e.preventDefault(); // Empêcher la navigation par défaut
-            
+
             // Trouver le sous-menu associé
             const submenu = item.querySelector('.submenu');
-            
+
             // Vérifier si le sous-menu est déjà ouvert
             const isOpen = submenu.classList.contains('active');
-            
+
             // Fermer tous les sous-menus ouverts
             document.querySelectorAll('.submenu.active').forEach(menu => {
                 if (menu !== submenu) {
@@ -111,7 +179,7 @@ function setupExpandableMenu() {
                     menu.style.maxHeight = '0';
                 }
             });
-            
+
             // Basculer l'état du sous-menu actuel
             if (isOpen) {
                 submenu.classList.remove('active');
@@ -121,17 +189,17 @@ function setupExpandableMenu() {
                 submenu.style.maxHeight = submenu.scrollHeight + 'px';
             }
         });
-        
+
         // Ajouter des écouteurs d'événements pour les sous-éléments
         const submenuItems = item.querySelectorAll('.submenu-item');
         submenuItems.forEach(subItem => {
-            subItem.addEventListener('click', function(e) {
+            subItem.addEventListener('click', function (e) {
                 e.stopPropagation(); // Empêcher la propagation aux parents
-                
+
                 // Récupérer la catégorie et le genre depuis les attributs data
                 const category = this.closest('.has-submenu').dataset.category;
                 const gender = this.dataset.gender;
-                
+
                 // Rediriger vers la page correspondante
                 window.location.href = `../templates/category.html?type=${category}&gender=${gender}`;
             });
@@ -164,93 +232,44 @@ window.addEventListener('click', (e) => {
 
 // --------- GESTION DES FAVORIS - SYSTÈME CENTRALISÉ ---------
 
-/**
- * Vérifie si un produit est dans les favoris
- * @param {number|string} productId - ID du produit à vérifier
- * @returns {boolean} - True si le produit est déjà dans les favoris
- */
 function isInFavorites(productId) {
-    // Normaliser l'ID en nombre
     const productIdNum = parseInt(productId, 10);
-    
-    // Récupérer les favoris depuis le localStorage
     const favorites = getFavoritesFromStorage();
-    
-    // Vérifier si le produit est déjà dans les favoris
     return favorites.some(id => parseInt(id, 10) === productIdNum);
 }
 
-/**
- * Récupère la liste des favoris depuis le localStorage
- * @returns {number[]} - Liste des IDs des produits favoris (normalisés en nombres)
- */
 function getFavoritesFromStorage() {
     const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
-    // S'assurer que tous les IDs sont des nombres
     return favorites.map(id => parseInt(id, 10));
 }
 
-/**
- * Sauvegarde la liste des favoris dans le localStorage
- * @param {number[]} favorites - Liste des IDs des produits favoris
- */
 function saveFavoritesToStorage(favorites) {
     localStorage.setItem('favorites', JSON.stringify(favorites));
 }
 
-/**
- * Ajoute un produit aux favoris
- * @param {number|string} productId - ID du produit à ajouter
- * @returns {boolean} - True si l'opération a réussi
- */
 function addToFavorites(productId) {
-    // Normaliser l'ID en nombre
     const productIdNum = parseInt(productId, 10);
-    
-    // Récupérer les favoris actuels
     const favorites = getFavoritesFromStorage();
-    
-    // Vérifier si l'ID est déjà présent
+
     if (!favorites.includes(productIdNum)) {
         favorites.push(productIdNum);
         saveFavoritesToStorage(favorites);
     }
-    
-    // Mettre à jour l'affichage du compteur
+
     updateFavoritesCounter();
     return true;
 }
 
-/**
- * Retire un produit des favoris
- * @param {number|string} productId - ID du produit à retirer
- * @returns {boolean} - True si l'opération a réussi
- */
 function removeFromFavorites(productId) {
-    // Normaliser l'ID en nombre
     const productIdNum = parseInt(productId, 10);
-    
-    // Récupérer les favoris actuels
     let favorites = getFavoritesFromStorage();
-    
-    // Filtrer pour retirer l'ID
     favorites = favorites.filter(id => id !== productIdNum);
-    
-    // Sauvegarder la liste mise à jour
     saveFavoritesToStorage(favorites);
-    
-    // Mettre à jour l'affichage du compteur
     updateFavoritesCounter();
     return true;
 }
 
-/**
- * Bascule l'état d'un produit dans les favoris
- * @param {number|string} productId - ID du produit à basculer
- * @returns {boolean} - True si le produit est maintenant dans les favoris, False sinon
- */
 function toggleFavorite(productId) {
-    // Vérifier si le produit est déjà dans les favoris
     if (isInFavorites(productId)) {
         removeFromFavorites(productId);
         return false;
@@ -260,26 +279,16 @@ function toggleFavorite(productId) {
     }
 }
 
-/**
- * Met à jour l'affichage du compteur de favoris dans l'interface
- */
 function updateFavoritesCounter() {
     const favorites = getFavoritesFromStorage();
     const counter = document.getElementById('favorites-count');
-    
+
     if (counter) {
         counter.textContent = favorites.length;
-        
-        // Masquer le compteur s'il est à zéro
-        if (favorites.length === 0) {
-            counter.style.display = 'none';
-        } else {
-            counter.style.display = 'inline-block';
-        }
+        counter.style.display = favorites.length === 0 ? 'none' : 'inline-block';
     }
 }
 
-// Exposer les fonctions de gestion des favoris à la portée globale
 window.isInFavorites = isInFavorites;
 window.addToFavorites = addToFavorites;
 window.removeFromFavorites = removeFromFavorites;
