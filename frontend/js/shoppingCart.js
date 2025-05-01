@@ -19,7 +19,7 @@ cartSidebar.innerHTML = `
             <span>Total:</span>
             <span class="total-amount">0.00€</span>
         </div>
-        <button class="checkout-btn">Passer la commande</button>
+        <button class="checkout-btn" onclick="window.location.href='../templates/checkout.html'">Passer la commande</button>
     </div>
 `;
 
@@ -29,14 +29,12 @@ cartSidebar.querySelector('.close-cart').addEventListener('click', toggleCart);
 
 // Toggle cart sidebar
 function toggleCart() {
-    console.log('Toggling cart sidebar'); // Debugging log
     cartSidebar.classList.toggle('active');
     updateCartDisplay();
 }
 
 // Add item to cart
 function addToCart(product) {
-    console.log('Adding product to cart:', product); // Debugging log
     const existingItem = cartItems.find(item =>
         item.id === product.id &&
         item.color === product.color &&
@@ -56,7 +54,6 @@ function addToCart(product) {
 
 // Remove item from cart
 function removeFromCart(productId, color, size) {
-    console.log(`Removing item: ID=${productId}, Color=${color}, Size=${size}`); // Debugging log
     cartItems = cartItems.filter(item => !(item.id === productId && item.color === color && item.size === size));
     saveCart();
     updateCartDisplay();
@@ -87,6 +84,7 @@ function calculateTotal() {
 function updateCartDisplay() {
     const cartItemsContainer = cartSidebar.querySelector('.cart-items');
     const totalAmount = cartSidebar.querySelector('.total-amount');
+    const checkoutBtn = cartSidebar.querySelector('.checkout-btn');
 
     // Clear the cart items container
     cartItemsContainer.innerHTML = '';
@@ -117,16 +115,30 @@ function updateCartDisplay() {
 
         cartItemsContainer.appendChild(cartItemElement);
 
-        // Add event listener for the "X" button
+        // Add event listeners for quantity controls
+        const minusBtn = cartItemElement.querySelector('.minus');
+        const plusBtn = cartItemElement.querySelector('.plus');
         const removeBtn = cartItemElement.querySelector('.remove-item');
+
+        minusBtn.addEventListener('click', () => {
+            updateQuantity(item.id, item.quantity - 1, item.color, item.size);
+        });
+
+        plusBtn.addEventListener('click', () => {
+            updateQuantity(item.id, item.quantity + 1, item.color, item.size);
+        });
+
         removeBtn.addEventListener('click', () => {
-            console.log(`Clicked remove button for ID=${item.id}, Color=${item.color}, Size=${item.size}`); // Debugging log
             removeFromCart(item.id, item.color, item.size);
         });
     });
 
     // Update the total amount
-    totalAmount.textContent = `${calculateTotal().toFixed(2)}€`;
+    const total = calculateTotal();
+    totalAmount.textContent = `${total.toFixed(2)}€`;
+
+    // Enable/disable checkout button based on cart items
+    checkoutBtn.disabled = cartItems.length === 0;
 }
 
 // Save cart to localStorage
@@ -139,7 +151,6 @@ function loadCart() {
     const savedCart = localStorage.getItem('cart');
     if (savedCart) {
         cartItems = JSON.parse(savedCart);
-        console.log('Cart loaded:', cartItems); // Debugging log
         updateCartDisplay();
     }
 }
@@ -147,5 +158,6 @@ function loadCart() {
 // Initialize cart on page load
 document.addEventListener('DOMContentLoaded', loadCart);
 
-// Make addToCart function globally available
+// Make functions globally available
 window.addToCart = addToCart;
+window.calculateTotal = calculateTotal;
