@@ -37,8 +37,7 @@ function toggleCart() {
 function addToCart(product) {
     const existingItem = cartItems.find(item =>
         item.id === product.id &&
-        item.color === product.color &&
-        item.size === product.size
+        item.color === product.color
     );
 
     if (existingItem) {
@@ -53,20 +52,20 @@ function addToCart(product) {
 }
 
 // Remove item from cart
-function removeFromCart(productId, color, size) {
-    cartItems = cartItems.filter(item => !(item.id === productId && item.color === color && item.size === size));
+function removeFromCart(productId, color) {
+    cartItems = cartItems.filter(item => !(item.id === productId && item.color === color));
     saveCart();
     updateCartDisplay();
 }
 
 // Update item quantity
-function updateQuantity(productId, newQuantity, color, size) {
-    const item = cartItems.find(item => item.id === productId && item.color === color && item.size === size);
+function updateQuantity(productId, newQuantity, color) {
+    const item = cartItems.find(item => item.id === productId && item.color === color);
     if (item) {
         if (newQuantity > 0) {
             item.quantity = newQuantity;
         } else {
-            removeFromCart(productId, color, size);
+            removeFromCart(productId, color);
         }
         saveCart();
         updateCartDisplay();
@@ -95,15 +94,13 @@ function updateCartDisplay() {
         cartItemElement.className = 'cart-item';
         cartItemElement.dataset.id = item.id;
         cartItemElement.dataset.color = item.color;
-        cartItemElement.dataset.size = item.size;
 
         cartItemElement.innerHTML = `
             <img src="${item.image}" alt="${item.name}">
             <div class="item-details">
                 <h3>${item.name}</h3>
                 <p class="item-price">${item.price}€</p>
-                <p class="item-color">Couleur: ${item.color || 'N/A'}</p>
-                <p class="item-size">Taille: ${item.size || 'N/A'}</p>
+                <p class="item-color">Couleur: ${item.color}</p>
                 <div class="quantity-controls">
                     <button class="quantity-btn minus">-</button>
                     <span class="quantity">${item.quantity}</span>
@@ -121,15 +118,15 @@ function updateCartDisplay() {
         const removeBtn = cartItemElement.querySelector('.remove-item');
 
         minusBtn.addEventListener('click', () => {
-            updateQuantity(item.id, item.quantity - 1, item.color, item.size);
+            updateQuantity(item.id, item.quantity - 1, item.color);
         });
 
         plusBtn.addEventListener('click', () => {
-            updateQuantity(item.id, item.quantity + 1, item.color, item.size);
+            updateQuantity(item.id, item.quantity + 1, item.color);
         });
 
         removeBtn.addEventListener('click', () => {
-            removeFromCart(item.id, item.color, item.size);
+            removeFromCart(item.id, item.color);
         });
     });
 

@@ -772,3 +772,79 @@ footer {
         grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
     }
 }
+
+/* Add this to your existing product.css file */
+
+.color-options {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 10px;
+}
+
+.color-option {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.color-option:hover {
+    transform: scale(1.1);
+}
+
+.color-option.active {
+    border-color: #333;
+}
+
+.color-option::after {
+    content: '';
+    position: absolute;
+    top: -4px;
+    left: -4px;
+    right: -4px;
+    bottom: -4px;
+    border: 2px solid transparent;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+.color-option.active::after {
+    border-color: #333;
+}
+
+.color-noir {
+    background-color: #000000;
+}
+
+.color-marron {
+    background-color: #8B4513;
+}
+
+.color-argent {
+    background-color: #C0C0C0;
+}
+
+.color-or {
+    background-color: #FFD700;
+}
+
+.color-rose {
+    background-color: #FFB6C1;
+}
+
+.color-bleu {
+    background-color: #0000FF;
+}
+
+.color-blanc {
+    background-color: #FFFFFF;
+    border: 1px solid #ddd;
+}
+
+.color-jaune {
+    background-color: #FFD700;
+}

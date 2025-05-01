@@ -76,6 +76,26 @@ function displayProductDetails(product) {
     // Mise à jour du stock
     document.getElementById('stock-quantity').textContent = product.quantity;
 
+    // Display color options if available
+    const colorOptions = document.getElementById('color-options');
+    if (product.characteristics.availableColors && product.characteristics.availableColors.length > 0) {
+        colorOptions.innerHTML = product.characteristics.availableColors.map(color => `
+            <div class="color-option color-${color.toLowerCase()}" 
+                 data-color="${color}"
+                 title="${color.charAt(0).toUpperCase() + color.slice(1)}"
+                 onclick="selectColor(this)">
+            </div>
+        `).join('');
+
+        // Select first color by default
+        const firstColor = colorOptions.querySelector('.color-option');
+        if (firstColor) {
+            firstColor.classList.add('active');
+        }
+    } else {
+        document.querySelector('.product-colors').style.display = 'none';
+    }
+
     // Affichage de la galerie d'images
     if (product.images && product.images.length > 0) {
         displayProductGallery(product.images);
@@ -305,3 +325,16 @@ function initPageEvents() {
         });
     }
 }
+
+function selectColor(element) {
+    document.querySelectorAll('.color-option').forEach(option => {
+        option.classList.remove('active');
+    });
+
+    element.classList.add('active');
+
+    const selectedColor = element.dataset.color;
+    console.log('Selected color:', selectedColor);
+}
+
+window.selectColor = selectColor;
