@@ -134,7 +134,7 @@
                             "jaune"
                         ],
                         "material": [
-                            "Or 375 jaune 2 tons recyclé"
+                            "Or"
                         ],
                         "poids": "3.40g",
                         "taille": [
@@ -177,7 +177,7 @@
                             "argent"
                         ],
                         "material": [
-                            "Argent 925/1000"
+                            "Argent"
                         ],
                         "taille": [
                             "52",
@@ -254,7 +254,7 @@
                     ],
                     "characteristics": {
                         "gender": "femme",
-                        "type": "collier",
+                        "type": "bague",
                         "availableColors": [
                             "or"
                         ],
