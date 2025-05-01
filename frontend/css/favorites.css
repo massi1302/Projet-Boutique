@@ -25,7 +25,7 @@
 .favorite-card {
     background-color: #fff;
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     overflow: hidden;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     cursor: pointer;
@@ -34,7 +34,7 @@
 
 .favorite-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
 
 /* Animation de suppression */
@@ -82,7 +82,7 @@
     display: flex;
     justify-content: space-between;
     padding: 10px;
-    background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
     opacity: 0;
     transition: opacity 0.3s ease;
 }
@@ -92,7 +92,7 @@
 }
 
 .add-to-cart-btn {
-    background-color: #8e2de2;
+    background-color: #020203;
     color: white;
     border: none;
     border-radius: 4px;
@@ -104,7 +104,7 @@
 }
 
 .add-to-cart-btn:hover {
-    background-color: #6a0dad;
+    background-color: #020203;
 }
 
 .remove-favorite-btn {
@@ -238,20 +238,20 @@
         grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
         gap: 15px;
     }
-    
+
     .favorite-image {
         height: 150px;
     }
-    
+
     .favorite-info h3 {
         font-size: 0.9rem;
     }
-    
+
     .add-to-cart-btn {
         padding: 5px 8px;
         font-size: 0.7rem;
     }
-    
+
     .remove-favorite-btn {
         width: 25px;
         height: 25px;
@@ -262,7 +262,7 @@
     .favorites-main {
         padding: 1rem;
     }
-    
+
     .favorites-grid {
         grid-template-columns: 1fr 1fr;
     }

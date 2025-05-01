@@ -759,15 +759,15 @@ footer {
     .product-container {
         flex-direction: column;
     }
-    
+
     .main-image {
         height: 300px;
     }
-    
+
     .product-actions {
         flex-direction: column;
     }
-    
+
     .similar-products-container {
         grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
     }

@@ -30,7 +30,7 @@ header.scrolled {
     background-color: rgba(255, 255, 255, 0.766);
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
-    
+
 .header-left,
 .header-right {
     display: flex;
@@ -303,7 +303,7 @@ footer {
     margin-bottom: 10px;
 }
 
-.sidebar nav ul li a, 
+.sidebar nav ul li a,
 .sidebar nav ul li .menu-link {
     text-decoration: none;
     color: #333;
@@ -343,7 +343,8 @@ footer {
 }
 
 .submenu.active {
-    max-height: 200px; /* Ajustez selon vos besoins */
+    max-height: 200px;
+    /* Ajustez selon vos besoins */
 }
 
 .submenu-item {

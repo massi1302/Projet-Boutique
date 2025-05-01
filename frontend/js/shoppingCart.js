@@ -1,0 +1,151 @@
+// Shopping Cart State
+let cartItems = [];
+
+// DOM Elements
+const cartIcon = document.querySelector('.header-right img[alt="shopping_bag-icon"]');
+const cartSidebar = document.createElement('div');
+cartSidebar.className = 'cart-sidebar';
+document.body.appendChild(cartSidebar);
+
+// Initialize cart sidebar HTML
+cartSidebar.innerHTML = `
+    <div class="cart-header">
+        <h2>Panier</h2>
+        <button class="close-cart">&times;</button>
+    </div>
+    <div class="cart-items"></div>
+    <div class="cart-footer">
+        <div class="cart-total">
+            <span>Total:</span>
+            <span class="total-amount">0.00€</span>
+        </div>
+        <button class="checkout-btn">Passer la commande</button>
+    </div>
+`;
+
+// Event Listeners
+cartIcon.addEventListener('click', toggleCart);
+cartSidebar.querySelector('.close-cart').addEventListener('click', toggleCart);
+
+// Toggle cart sidebar
+function toggleCart() {
+    console.log('Toggling cart sidebar'); // Debugging log
+    cartSidebar.classList.toggle('active');
+    updateCartDisplay();
+}
+
+// Add item to cart
+function addToCart(product) {
+    console.log('Adding product to cart:', product); // Debugging log
+    const existingItem = cartItems.find(item =>
+        item.id === product.id &&
+        item.color === product.color &&
+        item.size === product.size
+    );
+
+    if (existingItem) {
+        existingItem.quantity += product.quantity;
+    } else {
+        cartItems.push(product);
+    }
+
+    saveCart();
+    updateCartDisplay();
+    toggleCart(); // Open the cart when an item is added
+}
+
+// Remove item from cart
+function removeFromCart(productId, color, size) {
+    console.log(`Removing item: ID=${productId}, Color=${color}, Size=${size}`); // Debugging log
+    cartItems = cartItems.filter(item => !(item.id === productId && item.color === color && item.size === size));
+    saveCart();
+    updateCartDisplay();
+}
+
+// Update item quantity
+function updateQuantity(productId, newQuantity, color, size) {
+    const item = cartItems.find(item => item.id === productId && item.color === color && item.size === size);
+    if (item) {
+        if (newQuantity > 0) {
+            item.quantity = newQuantity;
+        } else {
+            removeFromCart(productId, color, size);
+        }
+        saveCart();
+        updateCartDisplay();
+    }
+}
+
+// Calculate total price
+function calculateTotal() {
+    return cartItems.reduce((total, item) => {
+        return total + (item.price * item.quantity);
+    }, 0);
+}
+
+// Update cart display
+function updateCartDisplay() {
+    const cartItemsContainer = cartSidebar.querySelector('.cart-items');
+    const totalAmount = cartSidebar.querySelector('.total-amount');
+
+    // Clear the cart items container
+    cartItemsContainer.innerHTML = '';
+
+    // Re-render the cart items
+    cartItems.forEach(item => {
+        const cartItemElement = document.createElement('div');
+        cartItemElement.className = 'cart-item';
+        cartItemElement.dataset.id = item.id;
+        cartItemElement.dataset.color = item.color;
+        cartItemElement.dataset.size = item.size;
+
+        cartItemElement.innerHTML = `
+            <img src="${item.image}" alt="${item.name}">
+            <div class="item-details">
+                <h3>${item.name}</h3>
+                <p class="item-price">${item.price}€</p>
+                <p class="item-color">Couleur: ${item.color || 'N/A'}</p>
+                <p class="item-size">Taille: ${item.size || 'N/A'}</p>
+                <div class="quantity-controls">
+                    <button class="quantity-btn minus">-</button>
+                    <span class="quantity">${item.quantity}</span>
+                    <button class="quantity-btn plus">+</button>
+                </div>
+            </div>
+            <button class="remove-item">&times;</button>
+        `;
+
+        cartItemsContainer.appendChild(cartItemElement);
+
+        // Add event listener for the "X" button
+        const removeBtn = cartItemElement.querySelector('.remove-item');
+        removeBtn.addEventListener('click', () => {
+            console.log(`Clicked remove button for ID=${item.id}, Color=${item.color}, Size=${item.size}`); // Debugging log
+            removeFromCart(item.id, item.color, item.size);
+        });
+    });
+
+    // Update the total amount
+    totalAmount.textContent = `${calculateTotal().toFixed(2)}€`;
+}
+
+// Save cart to localStorage
+function saveCart() {
+    localStorage.setItem('cart', JSON.stringify(cartItems));
+}
+
+// Load cart from localStorage
+function loadCart() {
+    const savedCart = localStorage.getItem('cart');
+    if (savedCart) {
+        cartItems = JSON.parse(savedCart);
+        console.log('Cart loaded:', cartItems); // Debugging log
+        updateCartDisplay();
+    }
+}
+
+// Initialize cart on page load
+document.addEventListener('DOMContentLoaded', loadCart);
+
+// Make addToCart function globally available
+window.addToCart = addToCart;

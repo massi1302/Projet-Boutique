@@ -5,8 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/product.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
-        rel="stylesheet">
+    <link rel="stylesheet" href="../css/shoppingCart.css">
     <title>Détail du produit - Luce Preziosa</title>
 </head>
 
@@ -39,7 +38,7 @@
             <img src="../icons/person.png" alt="person-icon">
             <img src="../icons/favorite.png" alt="favorite-icon" id="favorite-icon">
             <div class="cart-icon-container">
-                <img src="../icons/shopping_bag.png" alt="shopping_bag-icon" id="cart-icon">
+                <img src="../icons/shopping_bag.png" alt="shopping_bag-icon">
                 <span class="cart-count" id="cart-count">0</span>
             </div>
         </div>
@@ -47,8 +46,8 @@
 
     <main class="product-main">
         <div class="breadcrumb">
-            <a href="../templates/home.html">Accueil</a> &gt; 
-            <span id="product-category">Catégorie</span> &gt; 
+            <a href="../templates/home.html">Accueil</a> &gt;
+            <span id="product-category">Catégorie</span> &gt;
             <span id="product-name">Nom du produit</span>
         </div>
 
@@ -69,33 +68,33 @@
 
             <div class="product-info">
                 <h1 id="product-title">Nom du produit</h1>
-                
+
                 <div class="product-price">
                     <span id="original-price" class="original-price"></span>
                     <span id="current-price"></span>
                     <span id="currency"></span>
                 </div>
-                
+
                 <div class="product-description-container">
                     <p id="product-description-short" class="short-description"></p>
                     <button id="read-more-btn" class="read-more">Lire plus</button>
                     <p id="product-description-full" class="full-description"></p>
                 </div>
-                
+
                 <div class="product-colors">
                     <h3>Couleurs disponibles</h3>
                     <div id="color-options" class="color-options">
                         <!-- Les options de couleur seront générées dynamiquement -->
                     </div>
                 </div>
-                
+
                 <div class="product-sizes" id="sizes-container">
                     <h3>Tailles disponibles</h3>
                     <div id="size-options" class="size-options">
                         <!-- Les options de taille seront générées dynamiquement (si applicable) -->
                     </div>
                 </div>
-                
+
                 <div class="product-quantity">
                     <h3>Quantité</h3>
                     <div class="quantity-selector">
@@ -105,14 +104,14 @@
                     </div>
                     <p id="stock-info">En stock: <span id="stock-quantity">0</span></p>
                 </div>
-                
+
                 <div class="product-actions">
                     <button id="add-to-cart" class="btn primary-btn">Ajouter au panier</button>
                     <button id="add-to-wishlist" class="btn secondary-btn">
                         <img src="../icons/favorite_border.png" alt="wishlist"> Ajouter aux favoris
                     </button>
                 </div>
-                
+
                 <div class="product-details">
                     <h3>Caractéristiques</h3>
                     <ul id="product-specs">
@@ -125,7 +124,31 @@
         <section class="similar-products">
             <h2>Vous aimerez aussi</h2>
             <div class="similar-products-container" id="similar-products">
-                <!-- Les produits similaires seront générés dynamiquement -->
+                <div class="similar-product-card">
+                    <div class="similar-product-image">
+                        <img src="path/to/image1.jpg" alt="Product 1">
+                    </div>
+                    <div class="similar-product-info">
+                        <h3>Product Name 1</h3>
+                        <p class="similar-product-price">€99.99</p>
+                        <div class="similar-product-actions">
+                            <button class="primary-btn">Ajouter au panier</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="similar-product-card">
+                    <div class="similar-product-image">
+                        <img src="path/to/image2.jpg" alt="Product 2">
+                    </div>
+                    <div class="similar-product-info">
+                        <h3>Product Name 2</h3>
+                        <p class="similar-product-price">€79.99</p>
+                        <div class="similar-product-actions">
+                            <button class="primary-btn">Ajouter au panier</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Add more product cards here -->
             </div>
         </section>
     </main>
@@ -167,6 +190,7 @@
 
     <script src="../js/main.js"></script>
     <script src="../js/product.js"></script>
+    <script src="../js/shoppingCart.js"></script>
 </body>
 
 </html>
