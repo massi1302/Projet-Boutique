@@ -143,7 +143,7 @@ function displaySearchResults(results, container) {
 
     container.innerHTML = results.map(item => `
         <div class="search-result-item" onclick="window.location.href='../templates/product.html?id=${item.id}'">
-            <img src="${API_URL}${item.images[0]}" alt="${item.name}">
+            <img src="${API_URL}${item.images[0]}" alt="${item.name}" onerror="this.src='../images/default-product.jpg'">
             <div class="search-result-info">
                 <h4>${item.name}</h4>
                 <p>${item.price}${item.currency}</p>

@@ -1,3 +1,4 @@
+// URL de l'API
 const url = 'http://localhost:5000';
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -6,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const productId = parseInt(urlParams.get('id'));
 
     if (!productId) {
-        window.location.href = '/templates/home.html';
+        window.location.href = '../templates/home.html';
         return;
     }
 
@@ -27,214 +28,69 @@ document.addEventListener('DOMContentLoaded', function () {
         .catch(error => {
             console.error('Erreur:', error);
             // Rediriger vers la page d'accueil en cas d'erreur
-            window.location.href = '/templates/home.html';
+            window.location.href = '../templates/home.html';
         });
 
     // Initialiser les événements de la page            
     initPageEvents();
-    updateFavoritesCounter();
 });
-
-// Ajouter cette fonction qui manquait
-function initPageEvents() {
-    // Gérer le bouton "Lire plus"
-    const readMoreBtn = document.getElementById('read-more-btn');
-    const shortDesc = document.getElementById('product-description-short');
-    const fullDesc = document.getElementById('product-description-full');
-
-    if (readMoreBtn) {
-        readMoreBtn.addEventListener('click', function () {
-            shortDesc.style.display = 'none';
-            fullDesc.style.display = 'block';
-            readMoreBtn.style.display = 'none';
-        });
-    }
-
-    // Gérer les contrôles de quantité
-    const decreaseBtn = document.getElementById('decrease-quantity');
-    const increaseBtn = document.getElementById('increase-quantity');
-    const quantityInput = document.getElementById('quantity-input');
-    const stockQuantity = document.getElementById('stock-quantity');
-
-    if (decreaseBtn && increaseBtn && quantityInput) {
-        decreaseBtn.addEventListener('click', function () {
-            const currentValue = parseInt(quantityInput.value);
-            if (currentValue > 1) {
-                quantityInput.value = currentValue - 1;
-            }
-        });
-
-        increaseBtn.addEventListener('click', function () {
-            const currentValue = parseInt(quantityInput.value);
-            const maxStock = parseInt(stockQuantity.textContent);
-            if (currentValue < maxStock) {
-                quantityInput.value = currentValue + 1;
-            }
-        });
-
-        // Valider la saisie manuelle
-        quantityInput.addEventListener('change', function () {
-            const currentValue = parseInt(quantityInput.value);
-            const maxStock = parseInt(stockQuantity.textContent);
-
-            if (isNaN(currentValue) || currentValue < 1) {
-                quantityInput.value = 1;
-            } else if (currentValue > maxStock) {
-                quantityInput.value = maxStock;
-            }
-        });
-    }
-
-    // Handle the "Add to Cart" button
-    const addToCartBtn = document.getElementById('add-to-cart');
-    if (addToCartBtn) {
-        console.log('Add to Cart button found'); // Debugging log
-        addToCartBtn.addEventListener('click', function () {
-            const productId = parseInt(new URLSearchParams(window.location.search).get('id'));
-            const quantity = parseInt(document.getElementById('quantity-input').value);
-            const selectedColor = document.querySelector('.color-option.active')?.getAttribute('data-color');
-            const selectedSize = document.querySelector('.size-option.active')?.getAttribute('data-size');
-
-            const product = {
-                id: productId,
-                name: document.getElementById('product-title').textContent,
-                price: parseFloat(document.getElementById('current-price').textContent),
-                image: document.getElementById('main-product-image').src,
-                quantity: quantity,
-                color: selectedColor,
-                size: selectedSize,
-            };
-
-            console.log('Product data:', product); // Debugging log
-
-            // Add the product to the cart
-            addToCart(product);
-
-            // Notify the user
-            alert('Produit ajouté au panier!');
-
-            // Update the cart count in the header
-            const cartCount = document.getElementById('cart-count');
-            if (cartCount) {
-                cartCount.textContent = parseInt(cartCount.textContent) + quantity;
-            }
-        });
-    }
-
-    // Gérer le bouton d'ajout aux favoris
-    const wishlistBtn = document.getElementById('add-to-wishlist');
-    if (wishlistBtn) {
-        wishlistBtn.addEventListener('click', function () {
-            const productId = parseInt(new URLSearchParams(window.location.search).get('id'));
-            const icon = wishlistBtn.querySelector('img');
-
-            // Récupérer la liste actuelle des favoris
-            let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
-
-            if (icon.src.includes('favorite_border.png')) {
-                // Ajouter aux favoris
-                if (!favorites.includes(productId)) {
-                    favorites.push(productId);
-                }
-                icon.src = '../icons/favorite.png';
-                wishlistBtn.innerHTML = wishlistBtn.innerHTML.replace('Ajouter aux favoris', 'Retirer des favoris');
-            } else {
-                // Retirer des favoris
-                favorites = favorites.filter(id => id !== productId);
-                icon.src = '../icons/favorite_border.png';
-                wishlistBtn.innerHTML = wishlistBtn.innerHTML.replace('Retirer des favoris', 'Ajouter aux favoris');
-            }
-
-            // Sauvegarder dans localStorage
-            localStorage.setItem('favorites', JSON.stringify(favorites));
-
-            // Mettre à jour le compteur de favoris
-            updateFavoritesCounter();
-        });
-
-        // Vérifier si le produit est déjà dans les favoris lors du chargement
-        const productId = parseInt(new URLSearchParams(window.location.search).get('id'));
-        const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
-
-        if (favorites.includes(productId)) {
-            const icon = wishlistBtn.querySelector('img');
-            icon.src = '../icons/favorite.png';
-            wishlistBtn.innerHTML = wishlistBtn.innerHTML.replace('Ajouter aux favoris', 'Retirer des favoris');
-        }
-    }
-}
-
-// Fonction à ajouter pour mettre à jour le compteur de favoris
-function updateFavoritesCounter() {
-    const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
-    const counter = document.getElementById('favorites-count');
-
-    if (counter) {
-        counter.textContent = favorites.length;
-
-        // Masquer le compteur s'il est à zéro
-        if (favorites.length === 0) {
-            counter.style.display = 'none';
-        } else {
-            counter.style.display = 'inline-block';
-        }
-    }
-}
 
 // Fonction pour afficher les détails du produit
 function displayProductDetails(product) {
-    // Mise à jour des éléments simples
+    // Mise à jour du titre de la page
     document.title = `${product.name} - Luce Preziosa`;
-    document.getElementById('product-name').textContent = product.name;
-    document.getElementById('product-category').textContent = product.type || 'Bijoux';
-    document.getElementById('product-title').textContent = product.name;
-    document.getElementById('currency').textContent = product.currency;
-    document.getElementById('stock-quantity').textContent = product.stock;
 
-    // Prix et réduction
+    // Mise à jour du fil d'Ariane
+    document.getElementById('product-category').textContent = product.characteristics.type || 'Bijoux';
+    document.getElementById('product-name').textContent = product.name;
+
+    // Mise à jour du titre et des informations principales
+    document.getElementById('product-title').textContent = product.name;
+
+    // Gestion du prix et des réductions
+    const currentPrice = product.discount > 0
+        ? product.price * (1 - product.discount / 100)
+        : product.price;
+
     if (product.discount > 0) {
-        document.getElementById('original-price').textContent = product.price;
-        document.getElementById('current-price').textContent = (product.price * (1 - product.discount / 100)).toFixed(2);
+        document.getElementById('original-price').textContent = `${product.price}${product.currency}`;
+        document.getElementById('current-price').textContent = `${currentPrice.toFixed(2)}${product.currency}`;
         document.getElementById('discount-badge').textContent = `-${product.discount}%`;
     } else {
         document.getElementById('original-price').style.display = 'none';
-        document.getElementById('current-price').textContent = product.price;
+        document.getElementById('current-price').textContent = `${product.price}${product.currency}`;
         document.getElementById('discount-badge').style.display = 'none';
     }
 
-    // Description (tronquée à 150 caractères)
-    const fullDescription = product.description;
-    const shortDescription = fullDescription.length > 150
-        ? fullDescription.substring(0, 150) + '...'
-        : fullDescription;
+    // Mise à jour de la description
+    const description = product.description || 'Aucune description disponible.';
+    document.getElementById('product-description-short').textContent = description;
+    document.getElementById('product-description-full').textContent = description;
 
-    document.getElementById('product-description-short').textContent = shortDescription;
-    document.getElementById('product-description-full').textContent = fullDescription;
-
-    // Si la description est courte, masquer le bouton "Lire plus"
-    if (fullDescription.length <= 150) {
-        document.getElementById('read-more-btn').style.display = 'none';
+    // Masquer le bouton "Lire plus" si la description est courte
+    const readMoreBtn = document.getElementById('read-more-btn');
+    if (description.length <= 150) {
+        readMoreBtn.style.display = 'none';
     }
 
-    // Afficher la galerie d'images
-    displayProductGallery(product.images);
+    // Mise à jour du stock
+    document.getElementById('stock-quantity').textContent = product.quantity;
 
-    // Afficher les options de couleur
-    if (product.colors && product.colors.length > 0) {
-        displayColorOptions(product.colors);
-    } else {
-        document.querySelector('.product-colors').style.display = 'none';
+    // Affichage de la galerie d'images
+    if (product.images && product.images.length > 0) {
+        displayProductGallery(product.images);
     }
 
-    // Afficher les options de taille si disponibles
-    if (product.sizes && product.sizes.length > 0) {
-        displaySizeOptions(product.sizes);
-    } else {
-        document.getElementById('sizes-container').style.display = 'none';
-    }
-
-    // Afficher les caractéristiques du produit
+    // Affichage des caractéristiques du produit
     displayProductSpecs(product);
+
+    // Vérifier si le produit est dans les favoris
+    const wishlistBtn = document.getElementById('add-to-wishlist');
+    const wishlistIcon = wishlistBtn.querySelector('img');
+    if (isInFavorites(product.id)) {
+        wishlistIcon.src = '../icons/favorite.png';
+        wishlistBtn.innerHTML = wishlistBtn.innerHTML.replace('Ajouter aux favoris', 'Retirer des favoris');
+    }
 }
 
 // Fonction pour afficher la galerie d'images
@@ -242,113 +98,52 @@ function displayProductGallery(images) {
     const mainImage = document.getElementById('main-product-image');
     const thumbnailsContainer = document.getElementById('image-thumbnails');
 
-    // S'assurer que le tableau d'images existe et n'est pas vide
-    if (!images || images.length === 0) {
-        mainImage.src = `${url}/img/default.jpg`;
-        return;
-    }
+    // Nettoyer le conteneur des miniatures
+    thumbnailsContainer.innerHTML = '';
 
-    // Définir l'image principale
+    // Afficher l'image principale
     mainImage.src = `${url}${images[0]}`;
-    mainImage.setAttribute('data-index', 0);
+    mainImage.setAttribute('data-index', '0');
 
     // Créer les miniatures
-    thumbnailsContainer.innerHTML = '';
     images.forEach((image, index) => {
         const thumbnail = document.createElement('div');
         thumbnail.className = `thumbnail ${index === 0 ? 'active' : ''}`;
-        thumbnail.innerHTML = `<img src="${url}${image}" alt="Thumbnail ${index + 1}">`;
+        thumbnail.innerHTML = `<img src="${url}${image}" alt="Miniature ${index + 1}">`;
 
-        // Ajouter l'événement de clic pour changer l'image principale
         thumbnail.addEventListener('click', () => {
+            // Mettre à jour l'image principale
             mainImage.src = `${url}${image}`;
             mainImage.setAttribute('data-index', index);
 
             // Mettre à jour la classe active
-            document.querySelectorAll('.thumbnail').forEach(thumb => {
-                thumb.classList.remove('active');
-            });
+            document.querySelectorAll('.thumbnail').forEach(t => t.classList.remove('active'));
             thumbnail.classList.add('active');
         });
 
         thumbnailsContainer.appendChild(thumbnail);
     });
 
-    // Configurer les boutons de navigation
+    // Configuration des boutons de navigation
     const prevBtn = document.querySelector('.prev-btn');
     const nextBtn = document.querySelector('.next-btn');
 
-    prevBtn.addEventListener('click', () => {
-        navigateGallery(-1, images);
-    });
-
-    nextBtn.addEventListener('click', () => {
-        navigateGallery(1, images);
-    });
+    prevBtn.addEventListener('click', () => navigateGallery(-1, images));
+    nextBtn.addEventListener('click', () => navigateGallery(1, images));
 }
 
 // Fonction pour naviguer dans la galerie
 function navigateGallery(direction, images) {
     const mainImage = document.getElementById('main-product-image');
-    let currentIndex = parseInt(mainImage.getAttribute('data-index'));
-    let newIndex = (currentIndex + direction + images.length) % images.length;
+    const currentIndex = parseInt(mainImage.getAttribute('data-index'));
+    const newIndex = (currentIndex + direction + images.length) % images.length;
 
-    // Mettre à jour l'image principale
     mainImage.src = `${url}${images[newIndex]}`;
     mainImage.setAttribute('data-index', newIndex);
 
-    // Mettre à jour la miniature active
+    // Mise à jour des miniatures
     document.querySelectorAll('.thumbnail').forEach((thumb, index) => {
         thumb.classList.toggle('active', index === newIndex);
-    });
-}
-
-// Fonction pour afficher les options de couleur
-function displayColorOptions(colors) {
-    const colorContainer = document.getElementById('color-options');
-    colorContainer.innerHTML = '';
-
-    colors.forEach((color, index) => {
-        const colorOption = document.createElement('div');
-        colorOption.className = `color-option ${index === 0 ? 'active' : ''}`;
-        colorOption.style.backgroundColor = color;
-        colorOption.setAttribute('data-color', color);
-
-        colorOption.addEventListener('click', () => {
-            // Mettre à jour la couleur active
-            document.querySelectorAll('.color-option').forEach(option => {
-                option.classList.remove('active');
-            });
-            colorOption.classList.add('active');
-        });
-
-        colorContainer.appendChild(colorOption);
-    });
-}
-
-// Fonction pour afficher les options de taille
-function displaySizeOptions(sizes) {
-    const sizeContainer = document.getElementById('size-options');
-    sizeContainer.innerHTML = '';
-
-    sizes.forEach((size, index) => {
-        const sizeOption = document.createElement('div');
-        sizeOption.className = `size-option ${index === 0 ? 'active' : ''}`;
-        sizeOption.textContent = size;
-        sizeOption.setAttribute('data-size', size);
-
-        sizeOption.addEventListener('click', () => {
-            // Ne pas sélectionner si désactivé
-            if (sizeOption.classList.contains('disabled')) return;
-
-            // Mettre à jour la taille active
-            document.querySelectorAll('.size-option').forEach(option => {
-                option.classList.remove('active');
-            });
-            sizeOption.classList.add('active');
-        });
-
-        sizeContainer.appendChild(sizeOption);
     });
 }
 
@@ -357,18 +152,20 @@ function displayProductSpecs(product) {
     const specsList = document.getElementById('product-specs');
     specsList.innerHTML = '';
 
-    // Ajouter les caractéristiques standard
     const specs = [
-        { label: 'Type', value: product.type || 'Non spécifié' },
-        { label: 'Genre', value: product.gender || 'Unisexe' },
-        { label: 'Matière', value: product.material || 'Non spécifié' }
+        { label: 'Type', value: product.characteristics.type || 'Non spécifié' },
+        { label: 'Genre', value: product.characteristics.gender === 'homme' ? 'Homme' : 'Femme' },
+        { label: 'Matériaux', value: product.characteristics.material?.join(', ') || 'Non spécifié' }
     ];
 
-    // Ajouter d'autres caractéristiques spécifiques si elles existent
-    if (product.collection) specs.push({ label: 'Collection', value: product.collection });
-    if (product.weight) specs.push({ label: 'Poids', value: `${product.weight} g` });
+    // Ajouter les caractéristiques spécifiques
+    if (product.characteristics.chainLength) {
+        specs.push({ label: 'Longueur', value: product.characteristics.chainLength });
+    }
+    if (product.characteristics.adjustable) {
+        specs.push({ label: 'Ajustable', value: 'Oui' });
+    }
 
-    // Créer des éléments de liste pour chaque caractéristique
     specs.forEach(spec => {
         const li = document.createElement('li');
         li.innerHTML = `<span>${spec.label}:</span> <span>${spec.value}</span>`;
@@ -381,21 +178,17 @@ function fetchSimilarProducts(currentProduct) {
     fetch(`${url}/jewelry`)
         .then(response => response.json())
         .then(data => {
-            // Filtrer les produits similaires (même type ou même genre)
-            let similarProducts = data.jewelry.filter(product =>
-                product.id !== currentProduct.id &&
-                (product.type === currentProduct.type || product.gender === currentProduct.gender)
-            );
+            // Filtrer pour obtenir des produits similaires
+            const similarProducts = data.jewelry
+                .filter(product =>
+                    product.id !== currentProduct.id &&
+                    (product.characteristics.type === currentProduct.characteristics.type ||
+                        product.characteristics.gender === currentProduct.characteristics.gender))
+                .slice(0, 4);
 
-            // Limiter à 4 produits maximum
-            similarProducts = similarProducts.slice(0, 4);
-
-            // Afficher les produits similaires
             displaySimilarProducts(similarProducts);
         })
-        .catch(error => {
-            console.error('Erreur lors de la récupération des produits similaires:', error);
-        });
+        .catch(error => console.error('Erreur:', error));
 }
 
 // Fonction pour afficher les produits similaires
@@ -403,32 +196,112 @@ function displaySimilarProducts(products) {
     const container = document.getElementById('similar-products');
     container.innerHTML = '';
 
-    if (products.length === 0) {
-        document.querySelector('.similar-products').style.display = 'none';
-        return;
-    }
-
     products.forEach(product => {
-        const cardElement = document.createElement('div');
-        cardElement.className = 'similar-product-card';
-
-        // Formatage du prix avec réduction si applicable
         const price = product.discount > 0
             ? `<span class="original-price">${product.price}${product.currency}</span> ${(product.price * (1 - product.discount / 100)).toFixed(2)}${product.currency}`
             : `${product.price}${product.currency}`;
 
-        // Créer le HTML
-        cardElement.innerHTML = `
-            <a href="/templates/product.html?id=${product.id}">
+        const card = document.createElement('div');
+        card.className = 'similar-product-card';
+        card.innerHTML = `
+            <div class="similar-product-image">
                 <img src="${url}${product.images[0]}" alt="${product.name}">
+            </div>
+            <div class="similar-product-info">
                 <h3>${product.name}</h3>
-                <p>${price}</p>
-            </a>
+                <p class="similar-product-price">${price}</p>
+            </div>
         `;
-        container.appendChild(cardElement);
-    }
 
-    );
-    container.style.display = 'flex';
+        card.addEventListener('click', () => {
+            window.location.href = `product.html?id=${product.id}`;
+        });
+
+        container.appendChild(card);
+    });
 }
 
+// Initialisation des événements de la page
+function initPageEvents() {
+    // Gestion du bouton "Lire plus"
+    const readMoreBtn = document.getElementById('read-more-btn');
+    const shortDesc = document.getElementById('product-description-short');
+    const fullDesc = document.getElementById('product-description-full');
+
+    if (readMoreBtn) {
+        readMoreBtn.addEventListener('click', () => {
+            shortDesc.style.display = 'none';
+            fullDesc.style.display = 'block';
+            readMoreBtn.style.display = 'none';
+        });
+    }
+
+    // Gestion de la quantité
+    const decreaseBtn = document.getElementById('decrease-quantity');
+    const increaseBtn = document.getElementById('increase-quantity');
+    const quantityInput = document.getElementById('quantity-input');
+
+    if (decreaseBtn && increaseBtn && quantityInput) {
+        decreaseBtn.addEventListener('click', () => {
+            const currentValue = parseInt(quantityInput.value);
+            if (currentValue > 1) {
+                quantityInput.value = currentValue - 1;
+            }
+        });
+
+        increaseBtn.addEventListener('click', () => {
+            const currentValue = parseInt(quantityInput.value);
+            const maxStock = parseInt(document.getElementById('stock-quantity').textContent);
+            if (currentValue < maxStock) {
+                quantityInput.value = currentValue + 1;
+            }
+        });
+
+        quantityInput.addEventListener('change', () => {
+            let value = parseInt(quantityInput.value);
+            const maxStock = parseInt(document.getElementById('stock-quantity').textContent);
+
+            if (isNaN(value) || value < 1) value = 1;
+            if (value > maxStock) value = maxStock;
+
+            quantityInput.value = value;
+        });
+    }
+
+    // Gestion du bouton d'ajout au panier
+    const addToCartBtn = document.getElementById('add-to-cart');
+    if (addToCartBtn) {
+        addToCartBtn.addEventListener('click', () => {
+            const productId = new URLSearchParams(window.location.search).get('id');
+            const quantity = parseInt(document.getElementById('quantity-input').value);
+            const product = {
+                id: parseInt(productId),
+                name: document.getElementById('product-title').textContent,
+                price: parseFloat(document.getElementById('current-price').textContent),
+                image: document.getElementById('main-product-image').src,
+                quantity: quantity
+            };
+
+            // Ajouter au panier
+            window.addToCart(product);
+        });
+    }
+
+    // Gestion des favoris
+    const wishlistBtn = document.getElementById('add-to-wishlist');
+    if (wishlistBtn) {
+        wishlistBtn.addEventListener('click', () => {
+            const productId = parseInt(new URLSearchParams(window.location.search).get('id'));
+            const isNowFavorite = toggleFavorite(productId);
+            const icon = wishlistBtn.querySelector('img');
+
+            if (isNowFavorite) {
+                icon.src = '../icons/favorite.png';
+                wishlistBtn.innerHTML = wishlistBtn.innerHTML.replace('Ajouter aux favoris', 'Retirer des favoris');
+            } else {
+                icon.src = '../icons/favorite_border.png';
+                wishlistBtn.innerHTML = wishlistBtn.innerHTML.replace('Retirer des favoris', 'Ajouter aux favoris');
+            }
+        });
+    }
+}
