@@ -42,82 +42,8 @@ function setupHeaderRedirections() {
         favoritesIcon.style.cursor = 'pointer';
     }
     
-    // Redirection vers la page du panier quand on clique sur l'icône du panier
-    const cartIcon = document.querySelector('.header-right img[alt="shopping_bag-icon"], #cart-icon');
-    if (cartIcon) {
-        cartIcon.addEventListener('click', function() {
-            window.location.href = '../templates/checkout.html';
-        });
-        cartIcon.style.cursor = 'pointer';
-    }
 }
 
-// Fonction pour configurer les redirections du menu latéral
-function setupSidebarRedirections() {
-    // Gestion des liens de catégories dans la barre latérale
-    const categoryLinks = document.querySelectorAll('.sidebar .menu-link');
-    
-    categoryLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
-            e.preventDefault();
-            const parentItem = this.closest('.has-submenu');
-            
-            if (parentItem) {
-                const category = parentItem.dataset.category;
-                
-                // Afficher le sous-menu si présent
-                const submenu = parentItem.querySelector('.submenu');
-                if (submenu) {
-                    const isOpen = submenu.classList.contains('active');
-                    
-                    // Fermer tous les autres sous-menus
-                    document.querySelectorAll('.submenu.active').forEach(menu => {
-                        if (menu !== submenu) {
-                            menu.classList.remove('active');
-                            menu.style.maxHeight = '0';
-                        }
-                    });
-                    
-                    // Basculer l'état du sous-menu actuel
-                    if (isOpen) {
-                        submenu.classList.remove('active');
-                        submenu.style.maxHeight = '0';
-                    } else {
-                        submenu.classList.add('active');
-                        submenu.style.maxHeight = submenu.scrollHeight + 'px';
-                    }
-                }
-                
-                // Si l'utilisateur clique directement sur la catégorie, rediriger vers la page de catégorie
-                if (!submenu || !isOpen) {
-                    // Rediriger vers la page de catégorie générale
-                    window.location.href = `../templates/category.html?type=${category}`;
-                }
-            } else {
-                // Cas des liens directs (sans sous-menu)
-                const href = this.getAttribute('href');
-                if (href && href !== '#') {
-                    window.location.href = href;
-                }
-            }
-        });
-    });
-    
-    // Gestion des sous-éléments du menu
-    const submenuItems = document.querySelectorAll('.submenu-item');
-    
-    submenuItems.forEach(item => {
-        item.addEventListener('click', function(e) {
-            e.stopPropagation();
-            
-            const parentCategory = this.closest('.has-submenu').dataset.category;
-            const gender = this.dataset.gender;
-            
-            // Rediriger vers la page de catégorie filtrée par genre
-            window.location.href = `../templates/category.html?type=${parentCategory}&gender=${gender}`;
-        });
-    });
-}
 
 // Fonction pour configurer les redirections du footer
 function setupFooterRedirections() {
@@ -314,33 +240,3 @@ function setupBreadcrumbNavigation() {
     });
 }
 
-// --- Corrections pour harmoniser les menus entre versions françaises et anglaises ---
-
-// Cette fonction normalise les catégories entre les versions françaises et anglaises
-function normalizeCategory(category) {
-    // Mapping des catégories
-    const categoryMap = {
-        'bague': 'rings',
-        'rings': 'rings',
-        'earrings': 'earrings',
-        'boucle d\'oreilles': 'earrings',
-        'necklaces': 'necklaces',
-        'collier': 'necklaces',
-        'bracelets': 'bracelets'
-    };
-    
-    return categoryMap[category.toLowerCase()] || category;
-}
-
-// Cette fonction normalise les genres entre les versions françaises et anglaises
-function normalizeGender(gender) {
-    // Mapping des genres
-    const genderMap = {
-        'men': 'men',
-        'homme': 'men',
-        'women': 'women',
-        'femme': 'women'
-    };
-    
-    return genderMap[gender.toLowerCase()] || gender;
-}
