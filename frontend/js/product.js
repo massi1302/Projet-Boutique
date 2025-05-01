@@ -11,6 +11,9 @@ document.addEventListener('DOMContentLoaded', function () {
         return;
     }
 
+    // Initialize selectedColor globally
+    window.selectedColor = null;
+
     // Récupérer les détails du produit
     fetch(`${url}/jewelry/${productId}`)
         .then(response => {
@@ -91,6 +94,7 @@ function displayProductDetails(product) {
         const firstColor = colorOptions.querySelector('.color-option');
         if (firstColor) {
             firstColor.classList.add('active');
+            window.selectedColor = firstColor.dataset.color;
         }
     } else {
         document.querySelector('.product-colors').style.display = 'none';
@@ -299,7 +303,8 @@ function initPageEvents() {
                 name: document.getElementById('product-title').textContent,
                 price: parseFloat(document.getElementById('current-price').textContent),
                 image: document.getElementById('main-product-image').src,
-                quantity: quantity
+                quantity: quantity,
+                color: window.selectedColor || 'N/A'
             };
 
             // Ajouter au panier
@@ -333,8 +338,7 @@ function selectColor(element) {
 
     element.classList.add('active');
 
-    const selectedColor = element.dataset.color;
-    console.log('Selected color:', selectedColor);
+    window.selectedColor = element.dataset.color;
 }
 
 window.selectColor = selectColor;
