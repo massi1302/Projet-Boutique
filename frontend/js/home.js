@@ -207,13 +207,13 @@ function addCarouselEvents() {
                 
                 return;
             }
-            
-            // Ne pas naviguer si on clique sur le bouton d'ajout au panier
-            if (e.target.closest('.add-to-cart')) {
+            // Navigation vers la page de shopping cart
+            const addToCartBtn = e.target.closest('.add-to-cart');
+            if (addToCartBtn) {
                 e.stopPropagation();
-                return;
+                window.location.href = '../templates/shoppingCart.html'; 
             }
-            
+        
             // Navigation vers la page produit
             const jewelId = slide.dataset.jewelId;
             window.location.href = `../templates/product.html?id=${jewelId}`;

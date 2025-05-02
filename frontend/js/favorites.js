@@ -104,7 +104,7 @@ function createFavoriteCard(jewel) {
             <div class="favorite-actions">
                 <button class="add-to-cart-btn">Ajouter au panier</button>
                 <button class="remove-favorite-btn">
-                    <img src="../icons/close.png" alt="Supprimer">
+                    <img src="../icons/delete.png" alt="Supprimer">
                 </button>
             </div>
         </div>
@@ -127,19 +127,7 @@ function createFavoriteCard(jewel) {
         window.location.href = `../templates/product.html?id=${jewel.id}`;
     });
     
-    // Ajouter au panier
-    const addToCartBtn = card.querySelector('.add-to-cart-btn');
-    addToCartBtn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        // Simuler l'ajout au panier
-        alert('Produit ajouté au panier!');
-        
-        // Mise à jour du compteur du panier (à implémenter plus tard)
-        const cartCount = document.getElementById('cart-count');
-        if (cartCount) {
-            cartCount.textContent = parseInt(cartCount.textContent || '0') + 1;
-        }
-    });
+   
     
     // Supprimer des favoris - utiliser la fonction centralisée
     const removeFavoriteBtn = card.querySelector('.remove-favorite-btn');

@@ -112,7 +112,7 @@ function displayProductDetails(product) {
     const wishlistBtn = document.getElementById('add-to-wishlist');
     const wishlistIcon = wishlistBtn.querySelector('img');
     if (isInFavorites(product.id)) {
-        wishlistIcon.src = '../icons/favorite.png';
+        wishlistIcon.src = '../icons/favorite_full.png';
         wishlistBtn.innerHTML = wishlistBtn.innerHTML.replace('Ajouter aux favoris', 'Retirer des favoris');
     }
 }

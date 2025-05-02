@@ -34,30 +34,6 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     };
 
-    // Navigation vers la page d'accueil quand on clique sur le logo
-    const logo = document.querySelector('.logo');
-    if (logo) {
-        logo.addEventListener('click', function () {
-            window.location.href = `../templates/home.html`;
-        });
-        logo.style.cursor = 'pointer';
-    }
-
-    // Navigation vers la page de profil quand on clique sur l'icône de profil
-    const profileIcon = document.querySelector('.header-right img[alt="person-icon"]');
-    if (profileIcon) {
-        profileIcon.addEventListener('click', function () {
-            window.location.href = '../templates/profile.html';
-        });
-    }
-
-    // Navigation vers la page de favoris quand on clique sur l'icône de favoris
-    const favoritesIcon = document.querySelector('.header-right img[alt="favorite-icon"]');
-    if (favoritesIcon) {
-        favoritesIcon.addEventListener('click', function () {
-            window.location.href = '../templates/favorites.html';
-        });
-    }
 
     // Ajouter un effet de survol pour les icônes du header
     const headerIcons = document.querySelectorAll('.header-right img, .header-left img');
